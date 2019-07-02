@@ -12,11 +12,11 @@
         android:label="fragment_start_up"
         tools:layout="@layout/fragment_start_up" >
         <action
-            android:id="@+id/action_startUpFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
-        <action
             android:id="@+id/action_startUpFragment_to_signUpFormFragment"
             app:destination="@id/signUpFormFragment" />
+        <action
+            android:id="@+id/action_startUpFragment_to_loginChoiceFragment"
+            app:destination="@id/loginChoiceFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -33,4 +33,9 @@
         android:name="com.example.maverikapp.SignUpFormFragment"
         android:label="fragment_sign_up_form"
         tools:layout="@layout/fragment_sign_up_form" />
+    <fragment
+        android:id="@+id/loginChoiceFragment"
+        android:name="com.example.maverikapp.LoginChoiceFragment"
+        android:label="fragment_login_choice"
+        tools:layout="@layout/fragment_login_choice" />
 </navigation>
