@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/authencation_graph"
+    app:startDestination="@id/startUpFragment">
+
+    <fragment
+        android:id="@+id/startUpFragment"
+        android:name="com.example.maverikapp.StartUpFragment"
+        android:label="fragment_start_up"
+        tools:layout="@layout/fragment_start_up" >
+        <action
+            android:id="@+id/action_startUpFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_startUpFragment_to_signUpFormFragment"
+            app:destination="@id/signUpFormFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.maverikapp.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/signUpOtpFragment"
+        android:name="com.example.maverikapp.SignUpOtpFragment"
+        android:label="fragment_sign_up_otp"
+        tools:layout="@layout/fragment_sign_up_otp" />
+    <fragment
+        android:id="@+id/signUpFormFragment"
+        android:name="com.example.maverikapp.SignUpFormFragment"
+        android:label="fragment_sign_up_form"
+        tools:layout="@layout/fragment_sign_up_form" />
+</navigation>
