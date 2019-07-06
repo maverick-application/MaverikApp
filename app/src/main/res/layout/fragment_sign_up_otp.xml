@@ -23,6 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="230dp"
+        android:visibility="visible"
         app:cardCornerRadius="8dp"
         app:cardElevation="6dp"
         app:cardUseCompatPadding="true"
@@ -63,13 +64,14 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:layout_width="match_parent"
+                android:id="@+id/phoneEditText"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"
+                android:layout_width="match_parent"
                 android:inputType="phone"
                 android:hint="phone number"
-                android:textStyle="bold" />
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:textStyle="bold"/>
 
             <Button
                 android:layout_width="wrap_content"
@@ -81,8 +83,6 @@
                 android:textStyle="bold" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
-
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -126,22 +126,11 @@
                 android:layout_marginBottom="20dp"
                 android:textColor="@color/colorAccent"
                 android:layout_gravity="center_horizontal|center_vertical"
-                app:itemCount="4"
+                app:itemCount="6"
                 app:lineColor="@color/colorPrimary"
                 app:viewType="line"
                 />
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="submit"
-                android:id="@+id/buttonf"
-                android:textAllCaps="false"
-                android:textAlignment="center"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/rounded_button_main"
-                android:textColor="@color/colorAccent"
 
-                />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

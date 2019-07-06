@@ -17,7 +17,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="register"
+        android:text="@string/register"
         android:textSize="35sp"
         android:textColor="@color/colorAccent"
         android:textStyle="bold"
@@ -27,61 +27,64 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <EditText
-            android:id="@+id/etUsername"
+            android:id="@+id/su_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:ems="10"
-            android:hint="username" />
+            android:inputType="text"
+            android:hint="@string/username" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <EditText
-            android:id="@+id/etUsernam"
+            android:id="@+id/su_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:ems="10"
-            android:hint="password"
+            android:hint="@string/password"
             android:inputType="textPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
+
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <EditText
-            android:id="@+id/etUsenam"
+            android:id="@+id/su_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:ems="10"
-            android:hint="email" />
+            android:inputType="textEmailAddress"
+            android:hint="@string/email" />
     </com.google.android.material.textfield.TextInputLayout>
-    <com.google.android.material.textfield.TextInputLayout
+
+    <androidx.appcompat.widget.AppCompatSpinner
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <EditText
-            android:id="@+id/etUsernme"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:ems="10"
-            android:hint="role" />
-    </com.google.android.material.textfield.TextInputLayout>
+        android:layout_height="wrap_content"
+        android:background="@android:color/darker_gray"
+        android:textAlignment="viewStart"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:id="@+id/su_spinner"
+        />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_button_main"
         android:textColor="@color/colorAccent"
-        android:text="create account"
+        android:text="@string/create_account"
         android:textAllCaps="false"
         android:textStyle="bold"
+        android:id="@+id/su_button"
         android:layout_marginTop="25dp"
         />
 

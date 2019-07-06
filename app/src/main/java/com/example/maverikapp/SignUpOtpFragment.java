@@ -1,6 +1,7 @@
 package com.example.maverikapp;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -23,6 +24,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.mukesh.OnOtpCompletionListener;
 import com.mukesh.OtpView;
 
 import java.util.concurrent.TimeUnit;
@@ -34,13 +36,13 @@ import java.util.concurrent.TimeUnit;
 public class SignUpOtpFragment extends Fragment {
 
     private View view;
-    private Button b1,b2;
-    private EditText phoneEdit;
-    private String phoneNumber,verificationId;
+    private EditText editText;
     private OtpView otpView;
-    private CardView cardViewS,cardViewF;
-
+    private CardView cv1,cv2;
+    private String mVerificationId;
     private FirebaseAuth mFirebaseAuth;
+    EditText phoneEditText;
+
 
     public SignUpOtpFragment() {
         // Required empty public constructor
@@ -52,74 +54,66 @@ public class SignUpOtpFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_sign_up_otp, container, false);
 
-        cardViewS = (CardView)view.findViewById(R.id.cardViews);
-        cardViewF = (CardView)view.findViewById(R.id.cardViewf);
-
-        phoneNumber = phoneEdit.getText().toString();
-
-        otpView = (OtpView)view.findViewById(R.id.otp_view);
-
-
         mFirebaseAuth = FirebaseAuth.getInstance();
 
-        b1 = (Button) view.findViewById(R.id.buttons);
-        b1.setOnClickListener(new View.OnClickListener() {
+        phoneEditText = (EditText) view.findViewById(R.id.phoneEditText);
+
+        cv1 = (CardView)view.findViewById(R.id.cardViews);
+        cv2 = (CardView)view.findViewById(R.id.cardViewf);
+
+        view.findViewById(R.id.buttons).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cardViewS.setVisibility(View.GONE);
-                cardViewF.setVisibility(View.VISIBLE);
-                sendVerificationCode(phoneNumber);
+
+                String phoneNumber = phoneEditText.getText().toString();
+
+                if(phoneNumber.isEmpty() || phoneNumber.length() < 10 || phoneNumber.length() > 10){
+                    Toast.makeText(getContext(), "please enter the 10 digit phone number", Toast.LENGTH_SHORT).show();
+                    phoneEditText.requestFocus();
+                    return;
+                }else {
+                    sendVerificationCode(phoneNumber);
+                    cv1.setVisibility(View.GONE);
+                    cv2.setVisibility(View.VISIBLE);
+                }
+
+                otpView = (OtpView)view.findViewById(R.id.otp_view);
+                otpView.setOtpCompletionListener(new OnOtpCompletionListener() {
+                    @Override
+                    public void onOtpCompleted(String otp) {
+                        verifyCode(otp);
+                    }
+                });
+
 
             }
         });
-        b2 = (Button) view.findViewById(R.id.buttonf);
-        b2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                verifyCode(otpView.getText().toString().trim());
-                Navigation.findNavController(v).navigate(R.id.signUpFormFragment);
-            }
-        });
+
         return  view;
     }
 
-    private void verifyCode(String code){
-
-        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId,code);
-        signInWithCredential(credential);
-    }
-
-    private void signInWithCredential(PhoneAuthCredential credential) {
-        mFirebaseAuth.signInWithCredential(credential)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            Navigation.findNavController(view).navigate(R.id.signUpFormFragment);
-                        }else {
-                            Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-    }
-
-    private void sendVerificationCode(String number){
-
+    // This method is used for sending OTP to the mobile
+    private void sendVerificationCode(String phoneNumber) {
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                number,
-                1,
-                TimeUnit.MINUTES,
+                "+91"+phoneNumber,
+                60,
+                TimeUnit.SECONDS,
                 TaskExecutors.MAIN_THREAD,
-                mCallBack
+                mCallbacks // This callback is called when to check weather the received OTP is valid or not
         );
     }
 
-    private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallBack = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+    private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
         @Override
         public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
 
+            //Getting the six digit code from the sms
             String code = phoneAuthCredential.getSmsCode();
+            /*
+            Sometimes the sms may not be detected automatically in this case it will be null so user has to enter the code manually
+             */
             if(code != null){
+                otpView.setText(code);
                 verifyCode(code);
             }
         }
@@ -128,12 +122,33 @@ public class SignUpOtpFragment extends Fragment {
         public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
             super.onCodeSent(s, forceResendingToken);
 
-            verificationId = s;
+            //Storing the verification id that is sent to user
+            mVerificationId = s;
+
         }
 
         @Override
         public void onVerificationFailed(FirebaseException e) {
-
+            Toast.makeText(getContext(),"Verification Failed"+e,Toast.LENGTH_LONG).show();
         }
     };
+
+    private void verifyCode(String code) {
+        //Creating the credential
+        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(mVerificationId,code);
+
+        //Signing the user
+        mFirebaseAuth.signInWithCredential(credential)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            Navigation.findNavController(view).navigate(R.id.signUpFormFragment);
+                        }else{
+                            Toast.makeText(getContext(),"Problem in Sign In",Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+    }
+
 }
