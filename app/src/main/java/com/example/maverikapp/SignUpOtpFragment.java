@@ -145,7 +145,7 @@ public class SignUpOtpFragment extends Fragment {
                         if(task.isSuccessful()){
                             Navigation.findNavController(view).navigate(R.id.signUpFormFragment);
                         }else{
-                            Toast.makeText(getContext(),"Problem in Sign In",Toast.LENGTH_LONG).show();
+                          //  Toast.makeText(getContext(),"Problem in Sign In",Toast.LENGTH_LONG).show();
                         }
                     }
                 });

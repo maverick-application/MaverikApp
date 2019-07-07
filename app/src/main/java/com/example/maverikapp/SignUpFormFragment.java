@@ -2,6 +2,7 @@ package com.example.maverikapp;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -17,6 +18,11 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,7 +30,6 @@ import android.widget.Toast;
 public class SignUpFormFragment extends Fragment {
 
     private String[] suRoles= {"captain","vice Captain","team member","accountant" };
-    private EditText suUsernameEdit,suPasswordEdit,suEmailEdit;
     private String suUsername,suEmail,suPassword;
     private Button suButton;
 
@@ -40,9 +45,9 @@ public class SignUpFormFragment extends Fragment {
 
         Spinner suSpinner = (Spinner) view.findViewById(R.id.su_spinner);
 
-        suEmailEdit = (EditText)view.findViewById(R.id.su_email);
-        suUsernameEdit = (EditText)view.findViewById(R.id.su_username);
-        suPasswordEdit = (EditText)view.findViewById(R.id.su_password);
+        EditText suEmailEdit = (EditText) view.findViewById(R.id.su_email);
+        EditText suUsernameEdit = (EditText) view.findViewById(R.id.su_username);
+        EditText suPasswordEdit = (EditText) view.findViewById(R.id.su_password);
 
         suUsername = suUsernameEdit.getText().toString().trim();
         suPassword = suPasswordEdit.getText().toString().trim();
@@ -50,7 +55,7 @@ public class SignUpFormFragment extends Fragment {
 
 
         //Creating Array Adapter for the roles in the maverick.
-        ArrayAdapter suAdapter = new ArrayAdapter(getContext(),android.R.layout.simple_spinner_item,suRoles);
+        ArrayAdapter suAdapter = new ArrayAdapter(getContext(),R.layout.spinner_layout,suRoles);
         suAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         suSpinner.setAdapter(suAdapter);
 
@@ -71,14 +76,34 @@ public class SignUpFormFragment extends Fragment {
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(TextUtils.isEmpty(suEmail) || TextUtils.isEmpty(suPassword) || TextUtils.isEmpty(suUsername)){
-                            Toast.makeText(getContext(), "please fill the following fields", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                        if (suPassword.length() < 6){
-                            Toast.makeText(getContext(), "password length minimum 8 characters", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
+//                        if(TextUtils.isEmpty(suEmail) || TextUtils.isEmpty(suPassword) || TextUtils.isEmpty(suUsername)){
+//                            Toast.makeText(getContext(), "please fill the following fields", Toast.LENGTH_SHORT).show();
+//                            return;
+//                        }
+//                        if (suPassword.length() < 6){
+//                            Toast.makeText(getContext(), "password length minimum 8 characters", Toast.LENGTH_SHORT).show();
+//                            return;
+//                        }
+
+                        Call<ResponseBody> call = RetrofitClient
+                                .getInstance()
+                                .getApi()
+                                .createUser("pandfdjfiofsd","fsdfsdfsd","fsdfsdfsd","IARE");
+                        call.enqueue(new Callback<ResponseBody>() {
+                            @Override
+                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                Toast.makeText(getContext(), "Successful SignUp"+response.toString().trim(), Toast.LENGTH_LONG).show();
+                                String action;
+                                Intent na = new Intent(getContext(),MainActivity.class);
+                                startActivity(na);
+                            }
+
+                            @Override
+                            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                                Toast.makeText(getContext(), "Fail SignUp"+t.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
                 });
 
