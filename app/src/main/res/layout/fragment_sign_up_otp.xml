@@ -83,6 +83,71 @@
                 android:textStyle="bold" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViews"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="230dp"
+        android:visibility="visible"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="6dp"
+        app:cardUseCompatPadding="true"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_alternates"
+                android:text="otp verification"
+                android:textColor="@color/colorAccent"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_alternates"
+                android:text="please enter your 10 digit mobile number "
+                android:textColor="@color/colorAccent"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/montserrat_alternates"
+                android:text="india (+91)"
+                android:textColor="@color/colorAccent"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/phoneEditText"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:inputType="phone"
+                android:hint="phone number"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:textStyle="bold"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_button_main"
+                android:fontFamily="@font/montserrat_alternates"
+                android:text="next"
+                android:id="@+id/buttons"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
