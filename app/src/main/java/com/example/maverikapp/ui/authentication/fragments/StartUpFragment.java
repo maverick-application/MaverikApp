@@ -1,4 +1,4 @@
-package com.example.maverikapp;
+package com.example.maverikapp.ui.authentication.fragments;
 
 
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import com.example.maverikapp.R;
 
 
 public class StartUpFragment extends Fragment {

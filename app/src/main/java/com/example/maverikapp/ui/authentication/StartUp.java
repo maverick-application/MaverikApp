@@ -1,8 +1,10 @@
-package com.example.maverikapp;
+package com.example.maverikapp.ui.authentication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.maverikapp.R;
 
 public class StartUp extends AppCompatActivity {
 

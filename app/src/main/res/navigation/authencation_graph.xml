@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/startUpFragment"
-        android:name="com.example.maverikapp.StartUpFragment"
+        android:name="com.example.maverikapp.ui.authentication.fragments.StartUpFragment"
         android:label="fragment_start_up"
         tools:layout="@layout/fragment_start_up" >
         <action
@@ -20,22 +20,22 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.maverikapp.LoginFragment"
+        android:name="com.example.maverikapp.ui.authentication.fragments.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" />
     <fragment
         android:id="@+id/signUpOtpFragment"
-        android:name="com.example.maverikapp.SignUpOtpFragment"
+        android:name="com.example.maverikapp.ui.authentication.fragments.SignUpOtpFragment"
         android:label="fragment_sign_up_otp"
         tools:layout="@layout/fragment_sign_up_otp" />
     <fragment
         android:id="@+id/signUpFormFragment"
-        android:name="com.example.maverikapp.SignUpFormFragment"
+        android:name="com.example.maverikapp.ui.authentication.fragments.SignUpFormFragment"
         android:label="fragment_sign_up_form"
         tools:layout="@layout/fragment_sign_up_form" />
     <fragment
         android:id="@+id/loginChoiceFragment"
-        android:name="com.example.maverikapp.LoginChoiceFragment"
+        android:name="com.example.maverikapp.ui.authentication.fragments.LoginChoiceFragment"
         android:label="fragment_login_choice"
         tools:layout="@layout/fragment_login_choice" />
 </navigation>
