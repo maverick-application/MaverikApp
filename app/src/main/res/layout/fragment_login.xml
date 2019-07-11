@@ -6,18 +6,18 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_margin="15dp"
-    tools:context=".LoginFragment">
+    tools:context=".ui.authentication.fragments.LoginFragment">
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_main"
         android:layout_marginBottom="10dp"
-        />
+        android:contentDescription="@string/todo" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="login"
+        android:text="@string/login"
         android:textSize="35sp"
         android:textColor="@color/colorAccent"
         android:textStyle="bold"
@@ -27,26 +27,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <EditText
-            android:id="@+id/etUsername"
+            android:id="@+id/lf_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:ems="10"
-            android:hint="username" />
+            android:hint="@string/username" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <EditText
-            android:id="@+id/etUsernam"
+            android:id="@+id/lf_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:ems="10"
-            android:hint="password"
+            android:hint="@string/password"
             android:inputType="textPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
     <Button
@@ -54,16 +54,17 @@
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_button_main"
         android:textColor="@color/colorAccent"
-        android:text="create account"
+        android:text="@string/create_account"
         android:textAllCaps="false"
         android:textStyle="bold"
         android:layout_marginTop="25dp"
+        android:id="@+id/lf_button"
         />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="not a user ? signup"
+        android:text="@string/not_a_user_signup"
         android:textAlignment="center"
         android:textColor="@color/colorPrimary"
         android:textStyle="bold"

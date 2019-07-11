@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignUpFormFragment">
+    tools:context=".ui.authentication.fragments.SignUpFormFragment">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:orientation="vertical">
 
@@ -16,7 +16,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:src="@drawable/ic_main" />
+            android:src="@drawable/ic_main"
+            android:contentDescription="@string/todo" />
 
         <TextView
             android:layout_width="match_parent"
@@ -46,19 +47,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:id="@+id/su_gender_group"
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatRadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
-                android:text="male"
+                android:id="@+id/su_radio_male"
+                android:text="@string/male"
                 android:textStyle="bold" />
 
             <androidx.appcompat.widget.AppCompatRadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="female"
+                android:id="@+id/su_radio_female"
+                android:text="@string/female"
                 android:textStyle="bold" />
         </RadioGroup>
 
@@ -107,13 +111,20 @@
                 android:hint="@string/college"
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
-
+        <EditText
+            android:id="@+id/edittext"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/button"
+            android:layout_below="@+id/textView1"
+            android:ems="10"
+            android:text="hi" android:inputType="text" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
-            android:text="b.tech year : "
+            android:text="@string/b_tech_year"
             android:textColor="@color/colorAccent"
             android:textStyle="bold" />
 
@@ -122,30 +133,35 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
+            android:id="@+id/su_year_group"
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatRadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1st"
+                android:text="@string/_1st"
+                android:id="@+id/su_radio_year_1"
                 android:textStyle="bold" />
 
             <androidx.appcompat.widget.AppCompatRadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2nd"
+                android:text="@string/_2nd"
+                android:id="@+id/su_radio_year_2"
                 android:textStyle="bold" />
 
             <androidx.appcompat.widget.AppCompatRadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="3rd"
+                android:text="@string/_3rd"
+                android:id="@+id/su_radio_year_3"
                 android:textStyle="bold" />
 
             <androidx.appcompat.widget.AppCompatRadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="4th"
+                android:text="@string/_4th"
+                android:id="@+id/su_radio_year_4"
                 android:textStyle="bold" />
         </RadioGroup>
 
@@ -171,7 +187,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
-            android:text="already a user ? login"
+            android:text="@string/already_a_user_login"
             android:textAlignment="center"
             android:textColor="@color/colorPrimary"
             android:textStyle="bold" />

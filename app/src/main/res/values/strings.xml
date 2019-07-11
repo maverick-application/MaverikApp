@@ -11,4 +11,15 @@
     <string name="role">role</string>
     <string name="create_account">create account</string>
     <string name="college">college</string>
+    <string name="male">male</string>
+    <string name="female">female</string>
+    <string name="b_tech_year">b.tech year :</string>
+    <string name="_1st">1st</string>
+    <string name="_2nd">2nd</string>
+    <string name="_3rd">3rd</string>
+    <string name="_4th">4th</string>
+    <string name="already_a_user_login">already a user ? login</string>
+    <string name="todo">TODO</string>
+    <string name="username">username</string>
+    <string name="not_a_user_signup">not a user ? signup</string>
 </resources>

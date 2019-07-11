@@ -1,4 +1,4 @@
-package com.example.maverikapp;
+package com.example.maverikapp.api;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -10,6 +10,7 @@ public class RetrofitClient {
     private Retrofit mRetrofit;
 
     private RetrofitClient(){
+
 
         mRetrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)

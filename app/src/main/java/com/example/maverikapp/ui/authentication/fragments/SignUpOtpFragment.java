@@ -1,7 +1,6 @@
-package com.example.maverikapp;
+package com.example.maverikapp.ui.authentication.fragments;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,10 +11,10 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.maverikapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskExecutors;
@@ -61,7 +60,7 @@ public class SignUpOtpFragment extends Fragment {
         cv1 = (CardView)view.findViewById(R.id.cardViews);
         cv2 = (CardView)view.findViewById(R.id.cardViewf);
 
-        view.findViewById(R.id.buttons).setOnClickListener(new View.OnClickListener() {
+        cv1.findViewById(R.id.buttons).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

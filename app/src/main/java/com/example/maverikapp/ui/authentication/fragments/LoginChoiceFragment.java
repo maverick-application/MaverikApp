@@ -1,4 +1,4 @@
-package com.example.maverikapp;
+package com.example.maverikapp.ui.authentication.fragments;
 
 
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.maverikapp.R;
 
 
 public class LoginChoiceFragment extends Fragment {
