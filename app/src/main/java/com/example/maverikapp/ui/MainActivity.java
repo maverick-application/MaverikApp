@@ -1,9 +1,11 @@
-package com.example.maverikapp;
+package com.example.maverikapp.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.Toast;
+
+import com.example.maverikapp.R;
 
 public class MainActivity extends AppCompatActivity {
 
