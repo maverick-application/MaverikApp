@@ -1,47 +1,46 @@
 package com.example.maverikapp.data_models;
 
-public class User {
 
-    private int id;
-    private String email,name,college,year,role,gender;
+    public class User {
 
-    public User(int id, String email, String name, String college, String year, String role, String gender) {
-        this.id = id;
-        this.email = email;
-        this.name = name;
-        this.college = college;
-        this.year = year;
-        this.role = role;
-        this.gender = gender;
+        private String name;
+        private String email;
+        private String unique_id;
+        private String password;
+        private String old_password;
+        private String new_password;
+
+
+        public String getName() {
+            return name;
+        }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public String getUnique_id() {
+            return unique_id;
+        }
+
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public void setEmail(String email) {
+            this.email = email;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
+
+        public void setOld_password(String old_password) {
+            this.old_password = old_password;
+        }
+
+        public void setNew_password(String new_password) {
+            this.new_password = new_password;
+        }
     }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getCollege() {
-        return college;
-    }
-
-    public String getYear() {
-        return year;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-
-}
