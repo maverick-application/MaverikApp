@@ -1,11 +1,14 @@
 package com.example.maverikapp.ui.authentication.fragments;
 
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +22,12 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.maverikapp.R;
-import com.example.maverikapp.data_models.DefaultResponse;
+import com.example.maverikapp.api.Constants;
 import com.example.maverikapp.api.RetrofitClient;
+import com.example.maverikapp.data_models.AuthenticationServerRequest;
+import com.example.maverikapp.data_models.AuthenticationServerResponse;
+import com.example.maverikapp.data_models.User;
+import com.example.maverikapp.ui.MainActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,8 +40,10 @@ import retrofit2.Response;
 public class SignUpFormFragment extends Fragment {
 
     private View view;
+    private SharedPreferences suPref;
+
     private String[] suRoles= {"captain","vice Captain","team member","accountant" };
-    private String suUsername,suEmail,suPassword,suRole,suGender,suYear,suCollege;
+    private String suName,suEmail,suPassword,suRole,suGender,suYear,suCollege;
     private Button suButton;
     private Spinner suSpinner;
     private RadioGroup suGenderGroup,suYearGroup;
@@ -84,18 +93,25 @@ public class SignUpFormFragment extends Fragment {
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        suUsername = suNameEdit.getText().toString().trim();
+                        suName = suNameEdit.getText().toString().trim();
                         suPassword = suPasswordEdit.getText().toString().trim();
                         suEmail = suEmailEdit.getText().toString().trim();
                         suCollege = suCollegeEdit.getText().toString().trim();
 
-                        suRadioButtonG = (RadioButton)view.findViewById(suGenderGroup.getCheckedRadioButtonId());
-                        suGender = suRadioButtonG.getText().toString().trim();
 
-                        suRadioButtonY = (RadioButton)view.findViewById(suYearGroup.getCheckedRadioButtonId());
-                        suYear = suRadioButtonY.getText().toString().trim();
+                        try{
 
-                        if(TextUtils.isEmpty(suEmail) || TextUtils.isEmpty(suPassword) || TextUtils.isEmpty(suUsername)||TextUtils.isEmpty(suCollege)){
+                            suRadioButtonG = (RadioButton)view.findViewById(suGenderGroup.getCheckedRadioButtonId());
+                            suGender = suRadioButtonG.getText().toString().trim();
+
+                            suRadioButtonY = (RadioButton)view.findViewById(suYearGroup.getCheckedRadioButtonId());
+                            suYear = suRadioButtonY.getText().toString().trim();
+
+                        }catch (NullPointerException e){
+                            Toast.makeText(getContext(),"Please select the an option",Toast.LENGTH_SHORT).show();
+                        }
+
+                        if(TextUtils.isEmpty(suEmail) || TextUtils.isEmpty(suPassword) || TextUtils.isEmpty(suName)||TextUtils.isEmpty(suCollege)){
                             Toast.makeText(getContext(), "please fill the following fields", Toast.LENGTH_SHORT).show();
                             return;
                         }
@@ -108,33 +124,53 @@ public class SignUpFormFragment extends Fragment {
                             return;
                         }
 
-                        Call<DefaultResponse> call = RetrofitClient
-                                .getInstance()
-                                .getApi()
-                                .createUser(suEmail,suPassword,suUsername,suCollege,suYear,suRole,suGender);
-
-                        call.enqueue(new Callback<DefaultResponse>() {
-                            @Override
-                            public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
-
-                                if(response.code() == 201){
-                                    DefaultResponse dr = response.body();
-                                    Toast.makeText(getContext(), dr.getMessage(), Toast.LENGTH_SHORT).show();
-                                }else if(response.code() == 422){
-                                    Toast.makeText(getContext(),"User already Exists",Toast.LENGTH_LONG).show();
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<DefaultResponse> call, Throwable t) {
-
-                            }
-                        });
+                        registerProcess(suName,suEmail,suPassword,suGender,suCollege,suRole,suYear);
                     }
                 });
 
         // Inflate the layout for this fragment
         return view;
     }
+
+    private void registerProcess(final String name, final String email, String password, String gender, String college, String role, String year){
+        User user = new User();
+        user.setName(name);
+        user.setEmail(email);
+        user.setPassword(password);
+        user.setGender(gender);
+        user.setCollege(college);
+        user.setRole(role);
+        user.setYear(year);
+        AuthenticationServerRequest request = new AuthenticationServerRequest();
+        request.setOperation(Constants.REGISTER_OPERATION);
+        request.setUser(user);
+        Call<AuthenticationServerResponse> response = RetrofitClient
+                .getInstance()
+                .getApi()
+                .operation(request);
+
+        response.enqueue(new Callback<AuthenticationServerResponse>() {
+            @Override
+            public void onResponse(Call<AuthenticationServerResponse> call, retrofit2.Response<AuthenticationServerResponse> response) {
+
+                AuthenticationServerResponse resp = response.body();
+                Toast.makeText(getContext(),"Message : "+resp.getMessage(),Toast.LENGTH_SHORT).show();
+
+                if(resp.getResult().equals(Constants.SUCCESS)){
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    startActivity(intent);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<AuthenticationServerResponse> call, Throwable t) {
+
+                Log.d("Error Maverick","failed");
+
+            }
+        });
+    }
+
 
 }

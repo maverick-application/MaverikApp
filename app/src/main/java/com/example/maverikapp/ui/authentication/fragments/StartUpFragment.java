@@ -39,7 +39,7 @@ public class StartUpFragment extends Fragment {
         signB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.signUpOtpFragment);
+                Navigation.findNavController(v).navigate(R.id.signUpFormFragment);
             }
         });
 

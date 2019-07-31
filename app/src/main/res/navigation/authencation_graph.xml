@@ -12,11 +12,11 @@
         android:label="fragment_start_up"
         tools:layout="@layout/fragment_start_up" >
         <action
-            android:id="@+id/action_startUpFragment_to_signUpFormFragment"
-            app:destination="@id/signUpFormFragment" />
-        <action
             android:id="@+id/action_startUpFragment_to_loginChoiceFragment"
             app:destination="@id/loginChoiceFragment" />
+        <action
+            android:id="@+id/action_startUpFragment_to_signUpOtpFragment"
+            app:destination="@id/signUpOtpFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -27,7 +27,11 @@
         android:id="@+id/signUpOtpFragment"
         android:name="com.example.maverikapp.ui.authentication.fragments.SignUpOtpFragment"
         android:label="fragment_sign_up_otp"
-        tools:layout="@layout/fragment_sign_up_otp" />
+        tools:layout="@layout/fragment_sign_up_otp" >
+        <action
+            android:id="@+id/action_signUpOtpFragment_to_signUpFormFragment"
+            app:destination="@id/signUpFormFragment" />
+    </fragment>
     <fragment
         android:id="@+id/signUpFormFragment"
         android:name="com.example.maverikapp.ui.authentication.fragments.SignUpFormFragment"
@@ -37,5 +41,9 @@
         android:id="@+id/loginChoiceFragment"
         android:name="com.example.maverikapp.ui.authentication.fragments.LoginChoiceFragment"
         android:label="fragment_login_choice"
-        tools:layout="@layout/fragment_login_choice" />
+        tools:layout="@layout/fragment_login_choice" >
+        <action
+            android:id="@+id/action_loginChoiceFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 </navigation>
