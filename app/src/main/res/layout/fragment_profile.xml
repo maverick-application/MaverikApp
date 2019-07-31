@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.profile.ProfileFragment">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="S.narsimha Reddy"
+        android:textSize="35sp"
+        android:layout_centerInParent="true"
+        android:id="@+id/pf_name"
+        android:fontFamily="@font/montserrat_alternates_bold"
+        />
+
+    <TextView
+        android:id="@+id/pf_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/pf_name"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="65dp"
+        android:layout_marginBottom="-36dp"
+        android:fontFamily="@font/montserrat_alternates_bold"
+        android:text="panduudtb@gmail.com"
+        android:textSize="25sp" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/pf_button"
+        android:layout_alignBottom="@+id/pf_email"
+        android:layout_centerInParent="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="107dp"
+        android:layout_marginBottom="-58dp"
+        android:background="@drawable/rounded_button_main"
+        android:text="logout"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

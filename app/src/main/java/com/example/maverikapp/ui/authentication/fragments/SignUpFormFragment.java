@@ -1,6 +1,8 @@
 package com.example.maverikapp.ui.authentication.fragments;
 
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -25,6 +27,7 @@ import com.example.maverikapp.api.RetrofitClient;
 import com.example.maverikapp.data_models.AuthenticationServerRequest;
 import com.example.maverikapp.data_models.AuthenticationServerResponse;
 import com.example.maverikapp.data_models.User;
+import com.example.maverikapp.ui.MainActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,6 +40,8 @@ import retrofit2.Response;
 public class SignUpFormFragment extends Fragment {
 
     private View view;
+    private SharedPreferences suPref;
+
     private String[] suRoles= {"captain","vice Captain","team member","accountant" };
     private String suName,suEmail,suPassword,suRole,suGender,suYear,suCollege;
     private Button suButton;
@@ -93,50 +98,33 @@ public class SignUpFormFragment extends Fragment {
                         suEmail = suEmailEdit.getText().toString().trim();
                         suCollege = suCollegeEdit.getText().toString().trim();
 
-//                        suRadioButtonG = (RadioButton)view.findViewById(suGenderGroup.getCheckedRadioButtonId());
-//                        suGender = suRadioButtonG.getText().toString().trim();
-//
-//                        suRadioButtonY = (RadioButton)view.findViewById(suYearGroup.getCheckedRadioButtonId());
-////                        suYear = suRadioButtonY.getText().toString().trim();
 
-//                        if(TextUtils.isEmpty(suEmail) || TextUtils.isEmpty(suPassword) || TextUtils.isEmpty(suUsername)||TextUtils.isEmpty(suCollege)){
-//                            Toast.makeText(getContext(), "please fill the following fields", Toast.LENGTH_SHORT).show();
-//                            return;
-//                        }
-//                        if (suPassword.length() < 6){
-//                            Toast.makeText(getContext(), "password length minimum 8 characters", Toast.LENGTH_SHORT).show();
-//                            return;
-//                        }
-//                        if(suYear.isEmpty() || suGender.isEmpty()){
-//                            Toast.makeText(getContext(), "please fill the following fields", Toast.LENGTH_SHORT).show();
-//                            return;
-//                        }
+                        try{
 
-                        registerProcess(suName,suEmail,suPassword);
-//                        Call<DefaultResponse> call = RetrofitClient
-//                                .getInstance()
-//                                .getApi()
-//                                .createUser(suEmail,suPassword,suUsername,suCollege,suYear,suRole,suGender);
-//
-//                        call.enqueue(new Callback<DefaultResponse>() {
-//                            @Override
-//                            public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
-//
-//                                if(response.code() == 201){
-//                                    DefaultResponse dr = response.body();
-//                                    Toast.makeText(getContext(), dr.getMessage(), Toast.LENGTH_SHORT).show();
-//                                }else if(response.code() == 422){
-//                                    Toast.makeText(getContext(),"User already Exists",Toast.LENGTH_LONG).show();
-//                                }
-//                            }
-//
-//                            @Override
-//                            public void onFailure(Call<DefaultResponse> call, Throwable t) {
-//
-//                                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-//                                Log.d("errMsg",t.getMessage());
-//                            }
-//                        });
+                            suRadioButtonG = (RadioButton)view.findViewById(suGenderGroup.getCheckedRadioButtonId());
+                            suGender = suRadioButtonG.getText().toString().trim();
+
+                            suRadioButtonY = (RadioButton)view.findViewById(suYearGroup.getCheckedRadioButtonId());
+                            suYear = suRadioButtonY.getText().toString().trim();
+
+                        }catch (NullPointerException e){
+                            Toast.makeText(getContext(),"Please select the an option",Toast.LENGTH_SHORT).show();
+                        }
+
+                        if(TextUtils.isEmpty(suEmail) || TextUtils.isEmpty(suPassword) || TextUtils.isEmpty(suName)||TextUtils.isEmpty(suCollege)){
+                            Toast.makeText(getContext(), "please fill the following fields", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        if (suPassword.length() < 6){
+                            Toast.makeText(getContext(), "password length minimum 8 characters", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        if(suYear.isEmpty() || suGender.isEmpty()){
+                            Toast.makeText(getContext(), "please fill the following fields", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        registerProcess(suName,suEmail,suPassword,suGender,suCollege,suRole,suYear);
                     }
                 });
 
@@ -144,11 +132,15 @@ public class SignUpFormFragment extends Fragment {
         return view;
     }
 
-    private void registerProcess(String name, String email, String password){
+    private void registerProcess(final String name, final String email, String password, String gender, String college, String role, String year){
         User user = new User();
         user.setName(name);
         user.setEmail(email);
         user.setPassword(password);
+        user.setGender(gender);
+        user.setCollege(college);
+        user.setRole(role);
+        user.setYear(year);
         AuthenticationServerRequest request = new AuthenticationServerRequest();
         request.setOperation(Constants.REGISTER_OPERATION);
         request.setUser(user);
@@ -162,7 +154,12 @@ public class SignUpFormFragment extends Fragment {
             public void onResponse(Call<AuthenticationServerResponse> call, retrofit2.Response<AuthenticationServerResponse> response) {
 
                 AuthenticationServerResponse resp = response.body();
-                Toast.makeText(getContext(), "Message : "+resp.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),"Message : "+resp.getMessage(),Toast.LENGTH_SHORT).show();
+
+                if(resp.getResult().equals(Constants.SUCCESS)){
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    startActivity(intent);
+                }
 
             }
 
