@@ -3,6 +3,7 @@ package com.example.maverikapp.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,26 +61,26 @@ public class FeedsAdapter  extends RecyclerView.Adapter<FeedsAdapter.MyViewHolde
         faRequestOptions.diskCacheStrategy(DiskCacheStrategy.ALL);
         faRequestOptions.centerCrop();
 
-        Glide.with(faContext)
-                .load(model.getP_img())
-                .apply(faRequestOptions)
-                .listener(new RequestListener<Drawable>() {
-                    @Override
-                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                        holder.faProgressBar.setVisibility(View.GONE);
-                        return false;
-                    }
 
-                    @Override
-                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                        holder.faProgressBar.setVisibility(View.GONE);
-                        return false;
-                    }
-                })
+            Glide.with(faContext)
+                    .load(model.getP_img())
+                    .listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            holder.faProgressBar.setVisibility(View.GONE);
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            holder.faProgressBar.setVisibility(View.GONE);
+                            return false;
+                        }
+                    })
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .into(holder.faImg);
 
-        holder.faName.setText(model.getP_name());
+       holder.faName.setText(model.getP_name());
         holder.faTime.setText(model.getP_time());
         holder.faLikes.setText(model.getP_likes());
         holder.faUser.setText(model.getP_id());
@@ -88,7 +89,7 @@ public class FeedsAdapter  extends RecyclerView.Adapter<FeedsAdapter.MyViewHolde
 
     @Override
     public int getItemCount() {
-        return 0;
+        return  faList.size();
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener){
@@ -114,10 +115,12 @@ public class FeedsAdapter  extends RecyclerView.Adapter<FeedsAdapter.MyViewHolde
             faTime = itemView.findViewById(R.id.inf_time);
             faUser = itemView.findViewById(R.id.inf_user_name);
             faLikes = itemView.findViewById(R.id.inf_like_count);
+            faImg = itemView.findViewById(R.id.inf_feed_img);
             faProgressBar = itemView.findViewById(R.id.inf_progress_bar);
 
-            this.onItemClickListener = this.onItemClickListener;
         }
+
+
 
         @Override
         public void onClick(View v) {

@@ -45,12 +45,6 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         hfView = inflater.inflate(R.layout.fragment_home, container, false);
 
-        hfRecyclerView = hfView.findViewById(R.id.h_recycler_view);
-        hfLayoutManager = new LinearLayoutManager(getContext());
-        hfRecyclerView.setLayoutManager(hfLayoutManager);
-        hfRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        hfRecyclerView.setNestedScrollingEnabled(false);
-
         loadJson();
         return  hfView;
     }
@@ -71,6 +65,11 @@ public class HomeFragment extends Fragment {
                         hfPosts.clear();
                     }
 
+                    hfRecyclerView = hfView.findViewById(R.id.h_recycler_view);
+                    hfLayoutManager = new LinearLayoutManager(getActivity());
+                    hfRecyclerView.setLayoutManager(hfLayoutManager);
+                    hfRecyclerView.setItemAnimator(new DefaultItemAnimator());
+                    hfRecyclerView.setNestedScrollingEnabled(false);
                     hfPosts = response.body().getPosts();
                     hfAdapter = new FeedsAdapter(hfPosts,getContext());
                     hfRecyclerView.setAdapter(hfAdapter);
