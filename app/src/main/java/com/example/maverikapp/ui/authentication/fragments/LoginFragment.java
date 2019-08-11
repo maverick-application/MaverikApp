@@ -68,45 +68,49 @@ public class LoginFragment extends Fragment {
 
     private void loginProcessWithRetrofit(final String email, String password){
 
-        User user = new User();
-        user.setEmail(email);
-        user.setPassword(password);
+        Intent intent = new Intent(getActivity(), MainActivity.class);
+        startActivity(intent);
 
-        AuthenticationServerRequest request = new AuthenticationServerRequest();
-        request.setOperation(Constants.LOGIN_OPERATION);
-        request.setUser(user);
 
-        Call<AuthenticationServerResponse> response = RetrofitClient
-                .getInstance()
-                .getApi()
-                .operation(request);
-
-        response.enqueue(new Callback<AuthenticationServerResponse>() {
-            @Override
-            public void onResponse(Call<AuthenticationServerResponse> call, retrofit2.Response<AuthenticationServerResponse> response) {
-
-                AuthenticationServerResponse resp = response.body();
-
-                if(resp.getResult().equals(Constants.SUCCESS)){
-                    Toast.makeText(getContext(),"Message : "+resp.getUser().getEmail()+resp.getUser().getName(),Toast.LENGTH_LONG).show();
-
-                    SharedPreferences.Editor editor = lfPref.edit();
-                    editor.putBoolean(Constants.IS_LOGGED_IN,true);
-                    editor.putString(Constants.EMAIL,resp.getUser().getEmail());
-                    editor.putString(Constants.NAME,resp.getUser().getName());
-                    editor.putString(Constants.UNIQUE_ID,resp.getUser().getUnique_id());
-                    editor.apply();
-                    Intent intent = new Intent(getActivity(), MainActivity.class);
-                    startActivity(intent);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<AuthenticationServerResponse> call, Throwable t) {
-
-                Log.d("Maverik","failed");
-            }
-        });
+//        User user = new User();
+//        user.setEmail(email);
+//        user.setPassword(password);
+//
+//        AuthenticationServerRequest request = new AuthenticationServerRequest();
+//        request.setOperation(Constants.LOGIN_OPERATION);
+//        request.setUser(user);
+//
+//        Call<AuthenticationServerResponse> response = RetrofitClient
+//                .getInstance()
+//                .getApi()
+//                .operation(request);
+//
+//        response.enqueue(new Callback<AuthenticationServerResponse>() {
+//            @Override
+//            public void onResponse(Call<AuthenticationServerResponse> call, retrofit2.Response<AuthenticationServerResponse> response) {
+//
+//                AuthenticationServerResponse resp = response.body();
+//
+//                if(resp.getResult().equals(Constants.SUCCESS)){
+//                    Toast.makeText(getContext(),"Message : "+resp.getUser().getEmail()+resp.getUser().getName(),Toast.LENGTH_LONG).show();
+//
+//                    SharedPreferences.Editor editor = lfPref.edit();
+//                    editor.putBoolean(Constants.IS_LOGGED_IN,true);
+//                    editor.putString(Constants.EMAIL,resp.getUser().getEmail());
+//                    editor.putString(Constants.NAME,resp.getUser().getName());
+//                    editor.putString(Constants.UNIQUE_ID,resp.getUser().getUnique_id());
+//                    editor.apply();
+//                    Intent intent = new Intent(getActivity(), MainActivity.class);
+//                    startActivity(intent);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<AuthenticationServerResponse> call, Throwable t) {
+//
+//                Log.d("Maverik","failed");
+//            }
+//        });
     }
 
 }
