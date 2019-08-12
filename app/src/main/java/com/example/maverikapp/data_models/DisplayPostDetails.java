@@ -3,7 +3,7 @@ package com.example.maverikapp.data_models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class PostDetails {
+public class DisplayPostDetails {
 
     @SerializedName("p_id")
     @Expose

@@ -7,23 +7,13 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.maverikapp.R;
-import com.example.maverikapp.api.Constants;
-import com.example.maverikapp.api.RetrofitClient;
-import com.example.maverikapp.data_models.AuthenticationServerRequest;
-import com.example.maverikapp.data_models.AuthenticationServerResponse;
-import com.example.maverikapp.data_models.User;
 import com.example.maverikapp.ui.MainActivity;
-
-import retrofit2.Call;
-import retrofit2.Callback;
 
 import static android.content.Context.MODE_PRIVATE;
 

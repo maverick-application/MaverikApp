@@ -1,4 +1,6 @@
-package com.example.maverikapp.data_models;
+package com.example.maverikapp.pojo_response;
+
+import com.example.maverikapp.data_models.User;
 
 public class AuthenticationServerResponse {
     private String result;
