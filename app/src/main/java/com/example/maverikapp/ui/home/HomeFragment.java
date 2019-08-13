@@ -4,6 +4,7 @@ package com.example.maverikapp.ui.home;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -85,12 +87,31 @@ public class HomeFragment extends Fragment {
                     hfAdapter = new FeedsAdapter(hfPosts,getContext());
                     hfRecyclerView.setAdapter(hfAdapter);
                     hfAdapter.notifyDataSetChanged();
+                    initListener();
+
 
                 }else {
                     Toast.makeText(getContext(), "No Result", Toast.LENGTH_SHORT).show();
                 }
             }
 
+            private void initListener(){
+                hfAdapter.setOnItemClickListener(new FeedsAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        Intent na = new Intent(getContext(),FullViewPost.class);
+                        DisplayPostDetails displayPostDetails = hfPosts.get(position);
+                        na.putExtra("title",displayPostDetails.getP_name());
+                        na.putExtra("desc",displayPostDetails.getP_desc());
+                        na.putExtra("img",displayPostDetails.getP_img());
+                        na.putExtra("like",displayPostDetails.getP_likes());
+                        na.putExtra("time",displayPostDetails.getP_time());
+                        na.putExtra("user",displayPostDetails.getP_id());
+                        startActivity(na);
+
+                    }
+                });
+            }
             @Override
             public void onFailure(Call<DisplayPost> call, Throwable t) {
                 Toast.makeText(getContext(), "Failed :"+t.getMessage().trim(), Toast.LENGTH_SHORT).show();
