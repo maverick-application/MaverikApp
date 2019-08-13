@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Post {
+public class DisplayPost {
 
     @SerializedName("status")
     @Expose
@@ -17,7 +17,7 @@ public class Post {
 
     @SerializedName("posts")
     @Expose
-    private List<PostDetails> posts;
+    private List<DisplayPostDetails> posts;
 
 
     public String getStatus() {
@@ -36,11 +36,11 @@ public class Post {
         this.totalPosts = totalPosts;
     }
 
-    public List<PostDetails> getPosts() {
+    public List<DisplayPostDetails> getPosts() {
         return posts;
     }
 
-    public void setPosts(List<PostDetails> posts) {
+    public void setPosts(List<DisplayPostDetails> posts) {
         this.posts = posts;
     }
 

@@ -25,13 +25,12 @@ import com.example.maverikapp.R;
 import com.example.maverikapp.api.Constants;
 import com.example.maverikapp.api.RetrofitClient;
 import com.example.maverikapp.data_models.AuthenticationServerRequest;
-import com.example.maverikapp.data_models.AuthenticationServerResponse;
+import com.example.maverikapp.pojo_response.AuthenticationServerResponse;
 import com.example.maverikapp.data_models.User;
 import com.example.maverikapp.ui.MainActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Response;
 
 
 /**

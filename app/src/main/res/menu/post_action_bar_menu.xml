@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/like_button"
+        android:icon="@drawable/ic_like_red"
+        android:title="like"
+        android:orderInCategory="100"
+        />
+    <item
+        android:id="@+id/report"
+        android:title="report"
+        />
+    <item
+        android:id="@+id/settings"
+        android:title="setting"
+        />
+</menu>

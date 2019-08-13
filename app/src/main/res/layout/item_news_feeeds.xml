@@ -6,6 +6,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/root_view"
     app:cardCornerRadius="8dp"
     app:cardElevation="5dp"
     app:cardUseCompatPadding="true"
@@ -20,9 +21,11 @@
             android:layout_height="250dp"
             android:id="@+id/inf_feed_img"
             android:src="@drawable/sample_bg"
+            android:clickable="true"
             android:scaleType="fitXY"
             android:adjustViewBounds="true"
-            android:contentDescription="@string/todo" />
+            android:contentDescription="@string/todo"
+            android:focusable="true" />
 
         <ProgressBar
             android:id="@+id/inf_progress_bar"
@@ -30,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:visibility="visible" />
+            android:visibility="gone" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -89,14 +92,14 @@
             android:textStyle="bold"
             android:paddingTop="5dp"
             android:paddingStart="10dp"
-            android:paddingEnd="10dp"/>
+            android:paddingEnd="2dp"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            android:paddingBottom="10dp"
+            android:paddingBottom="5dp"
             >
 
             <ImageView

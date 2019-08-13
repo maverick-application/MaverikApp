@@ -10,4 +10,8 @@
         <item name="otpViewStyle">@style/OtpWidget.OtpView</item>
     </style>
 
+    <style name="ToolBar">
+        <item name="android:background">#303F9F</item>
+    </style>
+
 </resources>
