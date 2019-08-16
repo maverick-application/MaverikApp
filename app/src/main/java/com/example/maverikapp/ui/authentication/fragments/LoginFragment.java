@@ -11,7 +11,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.maverikapp.R;
@@ -29,9 +33,12 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class LoginFragment extends Fragment {
 
+    private LinearLayout lfLinearLayout;
     private EditText lfEditUsername,lfEditPassword;
     private View lfView;
+    private ProgressBar lfProgressBar;
     private SharedPreferences lfPref;
+    private String format = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
 
 
     public LoginFragment() {
@@ -49,6 +56,8 @@ public class LoginFragment extends Fragment {
 
         lfEditUsername = (EditText)lfView.findViewById(R.id.lf_username);
         lfEditPassword = (EditText)lfView.findViewById(R.id.lf_password);
+        lfProgressBar = lfView.findViewById(R.id.lf_progress_bar);
+        lfLinearLayout = (LinearLayout)lfView.findViewById(R.id.lf_parent_layout);
 
         lfView.findViewById(R.id.lf_button)
                 .setOnClickListener(new View.OnClickListener() {
@@ -56,6 +65,13 @@ public class LoginFragment extends Fragment {
                     public void onClick(View v) {
                         String lfUsername = lfEditUsername.getText().toString().trim();
                         String lfPassword = lfEditPassword.getText().toString().trim();
+                        if(lfUsername.isEmpty() || lfPassword.isEmpty()){
+                            Toast.makeText(getContext(), "please enter the details", Toast.LENGTH_SHORT).show();
+                        }else if(lfUsername.length() < 8){
+                            Toast.makeText(getContext(), "password must contain 8 letters", Toast.LENGTH_SHORT).show();
+                        }
+                        lfProgressBar.setVisibility(View.VISIBLE);
+                        lfLinearLayout.setClickable(false);
                         loginProcessWithRetrofit(lfUsername,lfPassword);
                     }
 
@@ -67,8 +83,6 @@ public class LoginFragment extends Fragment {
 
 
     private void loginProcessWithRetrofit(final String email, String password){
-
-
 
         User user = new User();
         user.setEmail(email);
@@ -98,8 +112,13 @@ public class LoginFragment extends Fragment {
                     editor.putString(Constants.NAME,resp.getUser().getName());
                     editor.putString(Constants.UNIQUE_ID,resp.getUser().getUnique_id());
                     editor.apply();
+                    lfProgressBar.setVisibility(View.GONE);
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     startActivity(intent);
+                }else{
+
+                    Toast.makeText(getContext(), "Wrong Details", Toast.LENGTH_SHORT).show();
+                    lfLinearLayout.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -107,6 +126,8 @@ public class LoginFragment extends Fragment {
             public void onFailure(Call<AuthenticationServerResponse> call, Throwable t) {
 
                 Log.d("Maverik","failed");
+                Toast.makeText(getContext(), "process failed", Toast.LENGTH_SHORT).show();
+                lfProgressBar.setVisibility(View.GONE);
             }
         });
     }

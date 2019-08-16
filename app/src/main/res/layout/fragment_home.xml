@@ -18,11 +18,40 @@
         android:layout_marginBottom="10dp"
 
         />
+    <!-- Custom Action Bar -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:id="@+id/h_layout_network"
+        >
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/h_network_gif"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            app:lottie_autoPlay="true"
+            android:layout_centerInParent="true"
+            app:lottie_fileName="network-error.json"
+            app:lottie_loop="true" />
 
-    <androidx.core.widget.NestedScrollView
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/h_network_gif"
+            android:id="@+id/h_network"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="-51dp"
+            android:background="@drawable/rounded_button_main"
+            android:text="retry"
+            android:textAllCaps="false"
+            android:textStyle="bold" />
+    </RelativeLayout>
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
+        android:visibility="gone"
+        android:id="@+id/h_parent_layout"
         >
         <LinearLayout
             android:layout_width="match_parent"
@@ -59,7 +88,7 @@
 
             </androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+    </ScrollView>
 
 
 </FrameLayout>

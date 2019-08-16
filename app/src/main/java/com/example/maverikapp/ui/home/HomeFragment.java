@@ -1,7 +1,10 @@
 package com.example.maverikapp.ui.home;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,8 +18,11 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.maverikapp.R;
 import com.example.maverikapp.adapter.FeedsAdapter;
 import com.example.maverikapp.api.RetrofitClient;
@@ -37,6 +43,9 @@ public class HomeFragment extends Fragment {
     private RecyclerView.LayoutManager hfLayoutManager;
     private List<DisplayPostDetails> hfPosts = new ArrayList<>();
     private FeedsAdapter hfAdapter;
+    private ScrollView hfScrollView;
+    private RelativeLayout hfRelativeLayout;
+    private LottieAnimationView networkError;
 
 
     public HomeFragment() {
@@ -48,6 +57,17 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         hfView = inflater.inflate(R.layout.fragment_home, container, false);
 
+        hfScrollView = (ScrollView)hfView.findViewById(R.id.h_parent_layout);
+        hfRelativeLayout = (RelativeLayout)hfView.findViewById(R.id.h_layout_network);
+
+        networkError = hfView.findViewById(R.id.h_network_gif);
+        hfView.findViewById(R.id.h_network).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onStart();
+            }
+        });
+
         hfView.findViewById(R.id.h_create_post).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,7 +78,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        loadJson();
         return  hfView;
     }
 
@@ -119,6 +138,27 @@ public class HomeFragment extends Fragment {
             }
         });
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if(isNetworkAvailable()){
+            hfScrollView.setVisibility(View.VISIBLE);
+            loadJson();
+        }else{
+            hfRelativeLayout.setVisibility(View.VISIBLE);
+            networkError.setProgress(0);
+            networkError.playAnimation();
+        }
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager cm =
+                (ConnectivityManager)getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
 
 }
