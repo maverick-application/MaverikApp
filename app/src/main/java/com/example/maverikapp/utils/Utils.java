@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,7 +19,6 @@ import java.util.Locale;
 import java.util.Random;
 
 public class Utils {
-
     public static ColorDrawable[] vibrantLightColorList =
             {
                     new ColorDrawable(Color.parseColor("#ffeead")),
@@ -30,6 +30,9 @@ public class Utils {
                     new ColorDrawable(Color.parseColor("#ffbf27")),
                     new ColorDrawable(Color.parseColor("#d93947"))
             };
+
+    public Utils() {
+    }
 
     public static ColorDrawable getRandomDrawbleColor() {
         int idx = new Random().nextInt(vibrantLightColorList.length);
@@ -50,6 +53,7 @@ public class Utils {
 
         return isTime;
     }
+
 
     public static String DateFormat(String oldstringDate){
         String newDate;
@@ -119,4 +123,6 @@ class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
 
         void onLongClick(View view, int position);
     }
+
+
 }

@@ -16,8 +16,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -48,6 +51,8 @@ public class SignUpFormFragment extends Fragment {
     private RadioGroup suGenderGroup,suYearGroup;
     private RadioButton suRadioButtonG,suRadioButtonY;
     private EditText suNameEdit,suPasswordEdit,suEmailEdit,suCollegeEdit;
+    private ProgressBar suProgressBar;
+    private ScrollView suSrollView;
 
 
     public SignUpFormFragment() {
@@ -69,6 +74,10 @@ public class SignUpFormFragment extends Fragment {
 
         suGenderGroup = (RadioGroup)view.findViewById(R.id.su_gender_group);
         suYearGroup = (RadioGroup)view.findViewById(R.id.su_year_group);
+
+        suProgressBar = (ProgressBar)view.findViewById(R.id.su_progress_bar);
+
+        suSrollView = (ScrollView) view.findViewById(R.id.su_parent_layout);
 
         //Creating Array Adapter for the roles in the maverick.
         ArrayAdapter suAdapter = new ArrayAdapter(getContext(),R.layout.spinner_layout,suRoles);
@@ -92,6 +101,10 @@ public class SignUpFormFragment extends Fragment {
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
+                        suProgressBar.setVisibility(View.VISIBLE);
+                        suSrollView.setClickable(false);
+
                         suName = suNameEdit.getText().toString().trim();
                         suPassword = suPasswordEdit.getText().toString().trim();
                         suEmail = suEmailEdit.getText().toString().trim();
@@ -156,6 +169,7 @@ public class SignUpFormFragment extends Fragment {
                 Toast.makeText(getContext(),"Message : "+resp.getMessage(),Toast.LENGTH_SHORT).show();
 
                 if(resp.getResult().equals(Constants.SUCCESS)){
+                    suProgressBar.setVisibility(View.GONE);
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     startActivity(intent);
                 }
@@ -166,6 +180,8 @@ public class SignUpFormFragment extends Fragment {
             public void onFailure(Call<AuthenticationServerResponse> call, Throwable t) {
 
                 Log.d("Error Maverick","failed");
+                suProgressBar.setVisibility(View.GONE);
+                Toast.makeText(getContext(), "process failed", Toast.LENGTH_SHORT).show();
 
             }
         });

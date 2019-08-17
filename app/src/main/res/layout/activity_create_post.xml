@@ -68,16 +68,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/cf_img_upload"
-            android:visibility="gone"
             android:text="image uploaded"
+            android:drawableStart="@drawable/ic_done_black"
             android:textColor="@color/colorAccent"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:drawablePadding="12dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="18dp"
             />
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="250dp"
             android:id="@+id/cf_view_img"
             android:contentDescription="@string/todo" />
 
