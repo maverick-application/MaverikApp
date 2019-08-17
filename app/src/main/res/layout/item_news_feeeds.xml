@@ -107,7 +107,9 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:contentDescription="@string/todo"
-                android:src="@drawable/ic_like_red"
+                android:src="@drawable/ic_like_black"
+                android:clickable="true"
+                android:focusable="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

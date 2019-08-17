@@ -123,7 +123,7 @@ public class HomeFragment extends Fragment {
                         na.putExtra("title",displayPostDetails.getP_name());
                         na.putExtra("desc",displayPostDetails.getP_desc());
                         na.putExtra("img",displayPostDetails.getP_img());
-                        na.putExtra("like",displayPostDetails.getP_likes());
+                        na.putExtra("like",displayPostDetails.getP_likes_count());
                         na.putExtra("time",displayPostDetails.getP_time());
                         na.putExtra("user",displayPostDetails.getP_id());
                         startActivity(na);

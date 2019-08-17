@@ -83,9 +83,33 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
 
         holder.faName.setText(model.getP_name());
         holder.faTime.setText(model.getP_time());
-        holder.faLikes.setText(model.getP_likes());
+        holder.faLikesCount.setText(model.getP_likes_count());
         holder.faUser.setText(model.getP_id());
 
+        if(model.getP_like().equals("yes")){
+            holder.faLike.setImageResource(R.drawable.ic_like_red);
+        }else{
+            holder.faLike.setImageResource(R.drawable.ic_like_black);
+        }
+
+        holder.faLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(model.getP_like().equals("yes")){
+                    holder.faLike.setImageResource(R.drawable.ic_like_black);
+                    holder.faLikesCount.setText(Integer.parseInt(model.getP_likes_count())-1);
+                }else{
+                    holder.faLike.setImageResource(R.drawable.ic_like_red);
+//                    if(model.getP_likes_count().equals("0")){
+//
+//                    }else{
+//
+//                    }
+                    holder.faLikesCount.setText(Integer.parseInt(model.getP_likes_count())+1);
+                }
+
+            }
+        });
         holder.faImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,7 +117,8 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
                 na.putExtra("title", model.getP_name());
                 na.putExtra("desc", model.getP_desc());
                 na.putExtra("img", model.getP_img());
-                na.putExtra("like", model.getP_likes());
+                na.putExtra("like_count", model.getP_likes_count());
+                na.putExtra("like",model.getP_like());
                 na.putExtra("time", model.getP_time());
             }
         });
@@ -116,8 +141,8 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView faName, faDesc, faTime, faUser, faLikes;
-        ImageView faImg;
+        TextView faName, faDesc, faTime, faUser, faLikesCount;
+        ImageView faImg,faLike;
         ProgressBar faProgressBar;
         CardView faCardView;
         OnItemClickListener onItemClickListener;
@@ -130,7 +155,8 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
             faName = itemView.findViewById(R.id.inf_title);
             faTime = itemView.findViewById(R.id.inf_time);
             faUser = itemView.findViewById(R.id.inf_user_name);
-            faLikes = itemView.findViewById(R.id.inf_like_count);
+            faLike = itemView.findViewById(R.id.inf_like);
+            faLikesCount = itemView.findViewById(R.id.inf_like_count);
             faImg = itemView.findViewById(R.id.inf_feed_img);
             faProgressBar = itemView.findViewById(R.id.inf_progress_bar);
 
