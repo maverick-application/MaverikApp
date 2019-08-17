@@ -20,6 +20,14 @@ public interface Api {
     @GET("/posts/display_all_post.php")
     Call<DisplayPost> getPosts();
 
+    @POST("/posts/display_all_post.php")
+    Call<DisplayPost> getLikePost(
+            @Field("user_id") String user_id,
+            @Field("post_id") String post_id,
+            @Field("status") String status
+
+    );
+
     @FormUrlEncoded
     @POST("/posts/create_post.php")
     Call<CreatePostModel> createPost(@Field("p_name") String p_name,
