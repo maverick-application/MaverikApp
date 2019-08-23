@@ -2,13 +2,16 @@ package com.example.maverikapp.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,17 +27,29 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.example.maverikapp.R;
+import com.example.maverikapp.api.Constants;
+import com.example.maverikapp.api.RetrofitClient;
 import com.example.maverikapp.data_models.DisplayPostDetails;
+import com.example.maverikapp.data_models.PostLikeModel;
 import com.example.maverikapp.ui.home.FullViewPost;
+import com.example.maverikapp.ui.home.HomeFragment;
 import com.example.maverikapp.utils.Utils;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder> {
 
     private List<DisplayPostDetails> faList;
     private Context faContext;
     private OnItemClickListener onItemClickListener;
+    private SharedPreferences hfSharedPerferences;
+    private  String user_id;
 
     public FeedsAdapter(List<DisplayPostDetails> faList, Context faContext) {
         this.faList = faList;
@@ -83,10 +98,10 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
 
         holder.faName.setText(model.getP_name());
         holder.faTime.setText(model.getP_time());
-        holder.faLikesCount.setText(model.getP_likes_count());
+        holder.faLikesCount.setText(model.getP_likes());
         holder.faUser.setText(model.getP_id());
 
-        if(model.getP_like().equals("yes")){
+        if(model.getP_like_status().equals("yes")){
             holder.faLike.setImageResource(R.drawable.ic_like_red);
         }else{
             holder.faLike.setImageResource(R.drawable.ic_like_black);
@@ -95,18 +110,34 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
         holder.faLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(model.getP_like().equals("yes")){
-                    holder.faLike.setImageResource(R.drawable.ic_like_black);
-                    holder.faLikesCount.setText(Integer.parseInt(model.getP_likes_count())-1);
-                }else{
-                    holder.faLike.setImageResource(R.drawable.ic_like_red);
-//                    if(model.getP_likes_count().equals("0")){
-//
-//                    }else{
-//
-//                    }
-                    holder.faLikesCount.setText(Integer.parseInt(model.getP_likes_count())+1);
+
+                try {
+                    hfSharedPerferences = faContext.getSharedPreferences(Constants.USER_DETAILS,MODE_PRIVATE);
+                }catch (Exception e){
+                    Toast.makeText(faContext,"Error :"+e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
+                user_id = hfSharedPerferences.getString(Constants.UNIQUE_ID,"");
+
+                final Call<PostLikeModel> likeModelCall = RetrofitClient
+                        .getInstance()
+                        .getApi()
+                        .getLikePost(user_id,model.getP_id());
+                likeModelCall.enqueue(new Callback<PostLikeModel>() {
+                    @Override
+                    public void onResponse(Call<PostLikeModel> call, Response<PostLikeModel> response) {
+                        if(response.body().getMessage().equals("yes")){
+                            holder.faLike.setImageResource(R.drawable.ic_like_red);
+                        }
+                        else
+                            holder.faLike.setImageResource(R.drawable.ic_like_black);
+                    }
+
+                    @Override
+                    public void onFailure(Call<PostLikeModel> call, Throwable t) {
+                        Toast.makeText(faContext, "Network Error"+t.getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.d("maa",t.getMessage());
+                    }
+                });
 
             }
         });
@@ -117,8 +148,8 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
                 na.putExtra("title", model.getP_name());
                 na.putExtra("desc", model.getP_desc());
                 na.putExtra("img", model.getP_img());
-                na.putExtra("like_count", model.getP_likes_count());
-                na.putExtra("like",model.getP_like());
+                na.putExtra("like_count", model.getP_likes());
+                na.putExtra("like",model.getP_like_status());
                 na.putExtra("time", model.getP_time());
             }
         });

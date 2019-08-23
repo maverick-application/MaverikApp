@@ -46,7 +46,7 @@ public class ProfileFragment extends Fragment {
         pfName = (TextView) pfView.findViewById(R.id.pf_name);
         pfEmail = (TextView) pfView.findViewById(R.id.pf_email);
 
-        pfPref = getActivity().getSharedPreferences("Mem",MODE_PRIVATE);
+        pfPref = getActivity().getSharedPreferences(Constants.USER_DETAILS,MODE_PRIVATE);
         pfName.setText("Welcome : "+(pfPref.getString(Constants.NAME,"")));
         Toast.makeText(getContext(),pfPref.getString(Constants.NAME,""),Toast.LENGTH_LONG).show();
         pfEmail.setText(pfPref.getString(Constants.EMAIL,""));
