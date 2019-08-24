@@ -13,10 +13,6 @@ public class PostLikeModel {
     @Expose
     private String post_id;
 
-    @SerializedName("status")
-    @Expose
-    private String status;
-
     @SerializedName("message")
     @Expose
     private String message;

@@ -5,7 +5,7 @@ package com.example.maverikapp.data_models;
 
         private String name;
         private String email;
-        private String unique_id;
+        private String user_id;
         private String password;
         private String old_password;
         private String new_password;
@@ -54,9 +54,6 @@ package com.example.maverikapp.data_models;
             return email;
         }
 
-        public String getUnique_id() {
-            return unique_id;
-        }
 
 
         public void setName(String name) {
@@ -65,6 +62,14 @@ package com.example.maverikapp.data_models;
 
         public void setEmail(String email) {
             this.email = email;
+        }
+
+        public String getUser_id() {
+            return user_id;
+        }
+
+        public void setUser_id(String user_id) {
+            this.user_id = user_id;
         }
 
         public void setPassword(String password) {

@@ -21,33 +21,34 @@ public class DisplayPostDetails {
     @Expose
     private String p_img;
 
-    @SerializedName("p_like")
+    @SerializedName("p_likes")
     @Expose
-    private String p_like;
-
-    @SerializedName("p_likes_count")
-    @Expose
-    private String p_likes_count;
+    private String p_likes;
 
     @SerializedName("p_time")
     @Expose
     private String p_time;
 
+    @SerializedName("p_like_status")
+    @Expose
+    private String p_like_status;
 
-    public String getP_like() {
-        return p_like;
+
+
+    public String getP_likes() {
+        return p_likes;
     }
 
-    public void setP_like(String p_like) {
-        this.p_like = p_like;
+    public String getP_like_status() {
+        return p_like_status;
     }
 
-    public String getP_likes_count() {
-        return p_likes_count;
+    public void setP_likes(String p_likes) {
+        this.p_likes = p_likes;
     }
 
-    public void setP_likes_count(String p_likes_count) {
-        this.p_likes_count = p_likes_count;
+    public void setP_like_status(String p_like_status) {
+        this.p_like_status = p_like_status;
     }
     public String getP_id() {
         return p_id;

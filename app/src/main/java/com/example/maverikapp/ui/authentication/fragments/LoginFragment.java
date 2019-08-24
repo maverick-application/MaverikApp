@@ -52,7 +52,7 @@ public class LoginFragment extends Fragment {
         // Inflate the layout for this fragment
         lfView = inflater.inflate(R.layout.fragment_login, container, false);
 
-        lfPref = getActivity().getSharedPreferences("Mem",MODE_PRIVATE);
+        lfPref = getActivity().getSharedPreferences(Constants.USER_DETAILS,MODE_PRIVATE);
 
         lfEditUsername = (EditText)lfView.findViewById(R.id.lf_username);
         lfEditPassword = (EditText)lfView.findViewById(R.id.lf_password);
@@ -110,7 +110,7 @@ public class LoginFragment extends Fragment {
                     editor.putBoolean(Constants.IS_LOGGED_IN,true);
                     editor.putString(Constants.EMAIL,resp.getUser().getEmail());
                     editor.putString(Constants.NAME,resp.getUser().getName());
-                    editor.putString(Constants.UNIQUE_ID,resp.getUser().getUnique_id());
+                    editor.putString(Constants.UNIQUE_ID,resp.getUser().getUser_id());
                     editor.apply();
                     lfProgressBar.setVisibility(View.GONE);
                     Intent intent = new Intent(getActivity(), MainActivity.class);
@@ -126,7 +126,7 @@ public class LoginFragment extends Fragment {
             public void onFailure(Call<AuthenticationServerResponse> call, Throwable t) {
 
                 Log.d("Maverik","failed");
-                Toast.makeText(getContext(), "process failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "process failed"+t.getMessage(), Toast.LENGTH_SHORT).show();
                 lfProgressBar.setVisibility(View.GONE);
             }
         });
