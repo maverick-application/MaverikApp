@@ -1,4 +1,4 @@
-package com.example.maverikapp.pojo_response;
+package com.example.maverikapp.pojo_response.posts;
 
 import com.google.gson.annotations.SerializedName;
 

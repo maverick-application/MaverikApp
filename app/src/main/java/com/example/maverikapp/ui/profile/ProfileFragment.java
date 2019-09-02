@@ -15,8 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.maverikapp.R;
-import com.example.maverikapp.api.Constants;
-import com.example.maverikapp.ui.MainActivity;
+import com.example.maverikapp.utils.Constants;
 import com.example.maverikapp.ui.authentication.StartUp;
 
 import static android.content.Context.MODE_PRIVATE;

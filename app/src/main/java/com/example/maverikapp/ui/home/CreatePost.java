@@ -18,8 +18,7 @@ import android.widget.Toast;
 
 import com.example.maverikapp.R;
 import com.example.maverikapp.api.RetrofitClient;
-import com.example.maverikapp.data_models.CreatePostModel;
-import com.example.maverikapp.pojo_response.CreatePostResponse;
+import com.example.maverikapp.pojo_response.posts.CreatePostModel;
 import com.example.maverikapp.ui.MainActivity;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;

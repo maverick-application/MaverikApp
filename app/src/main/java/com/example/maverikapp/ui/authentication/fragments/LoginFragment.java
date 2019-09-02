@@ -11,23 +11,21 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.maverikapp.R;
-import com.example.maverikapp.api.Constants;
+import com.example.maverikapp.utils.Constants;
 import com.example.maverikapp.api.RetrofitClient;
-import com.example.maverikapp.data_models.AuthenticationServerRequest;
-import com.example.maverikapp.data_models.User;
-import com.example.maverikapp.pojo_response.AuthenticationServerResponse;
+import com.example.maverikapp.pojo_response.auth.UserDetailsResponse;
+import com.example.maverikapp.pojo_response.auth.AuthenticationResponse;
 import com.example.maverikapp.ui.MainActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -38,6 +36,7 @@ public class LoginFragment extends Fragment {
     private View lfView;
     private ProgressBar lfProgressBar;
     private SharedPreferences lfPref;
+    private Call<AuthenticationResponse> lfCall;
     private String format = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
 
 
@@ -84,50 +83,47 @@ public class LoginFragment extends Fragment {
 
     private void loginProcessWithRetrofit(final String email, String password){
 
-        User user = new User();
-        user.setEmail(email);
-        user.setPassword(password);
+        lfCall = RetrofitClient
+        .getInstance()
+        .getApi()
+        .userLogin(email,password);
 
-        AuthenticationServerRequest request = new AuthenticationServerRequest();
-        request.setOperation(Constants.LOGIN_OPERATION);
-        request.setUser(user);
-
-        Call<AuthenticationServerResponse> response = RetrofitClient
-                .getInstance()
-                .getApi()
-                .operation(request);
-
-        response.enqueue(new Callback<AuthenticationServerResponse>() {
+        lfCall.enqueue(new Callback<AuthenticationResponse>() {
             @Override
-            public void onResponse(Call<AuthenticationServerResponse> call, retrofit2.Response<AuthenticationServerResponse> response) {
+            public void onResponse(Call<AuthenticationResponse> call, Response<AuthenticationResponse> response) {
 
-                AuthenticationServerResponse resp = response.body();
+                AuthenticationResponse authResp = response.body();
 
-                if(resp.getResult().equals(Constants.SUCCESS)){
-                    Toast.makeText(getContext(),"Welcome : "+resp.getUser().getName(),Toast.LENGTH_LONG).show();
+                if(authResp != null){
+                    if(authResp.getResult() == 1){
 
-                    SharedPreferences.Editor editor = lfPref.edit();
-                    editor.putBoolean(Constants.IS_LOGGED_IN,true);
-                    editor.putString(Constants.EMAIL,resp.getUser().getEmail());
-                    editor.putString(Constants.NAME,resp.getUser().getName());
-                    editor.putString(Constants.UNIQUE_ID,resp.getUser().getUser_id());
-                    editor.apply();
-                    lfProgressBar.setVisibility(View.GONE);
-                    Intent intent = new Intent(getActivity(), MainActivity.class);
-                    startActivity(intent);
+                        Toast.makeText(getContext(), "login successful", Toast.LENGTH_SHORT).show();
+
+                        SharedPreferences.Editor store = lfPref.edit();
+                        store.putBoolean(Constants.IS_LOGGED_IN,true);
+                        store.putString(Constants.EMAIL,authResp.getUserDetailsResponse().getEmail());
+                        store.putString(Constants.NAME,authResp.getUserDetailsResponse().getName());
+                        store.putString(Constants.USER_ID,authResp.getUserDetailsResponse().getMember_id());
+                        store.putString(Constants.LEVEL,authResp.getUserDetailsResponse().getLevel());
+                        store.putString(Constants.ROLE,authResp.getUserDetailsResponse().getRole());
+                        store.putString(Constants.DOB,authResp.getUserDetailsResponse().getDob());
+                        store.apply();
+                        Intent su = new Intent(getActivity(), MainActivity.class);
+                        startActivity(su);
+
+                    }else{
+                        Toast.makeText(getContext(),"try again after some time"+authResp.getResult()+"      "+authResp.getMessage(),Toast.LENGTH_LONG).show();
+                    }
                 }else{
-
-                    Toast.makeText(getContext(), "Wrong Details", Toast.LENGTH_SHORT).show();
-                    lfLinearLayout.setVisibility(View.VISIBLE);
+                    Toast.makeText(getContext(),"error in network",Toast.LENGTH_LONG).show();
                 }
-            }
+
+                    }
 
             @Override
-            public void onFailure(Call<AuthenticationServerResponse> call, Throwable t) {
-
-                Log.d("Maverik","failed");
-                Toast.makeText(getContext(), "process failed"+t.getMessage(), Toast.LENGTH_SHORT).show();
-                lfProgressBar.setVisibility(View.GONE);
+            public void onFailure(Call<AuthenticationResponse> call, Throwable t) {
+                Toast.makeText(getContext(),"Error Occured : "+t.getMessage(),Toast.LENGTH_LONG).show();
+                Log.d("Maverick",t.getMessage());
             }
         });
     }

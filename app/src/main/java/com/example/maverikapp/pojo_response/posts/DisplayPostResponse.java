@@ -1,11 +1,11 @@
-package com.example.maverikapp.data_models;
+package com.example.maverikapp.pojo_response.posts;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class DisplayPost {
+public class DisplayPostResponse {
 
     @SerializedName("status")
     @Expose
@@ -17,7 +17,7 @@ public class DisplayPost {
 
     @SerializedName("posts")
     @Expose
-    private List<DisplayPostDetails> posts;
+    private List<DisplayPostDetailsResponse> posts;
 
 
     public String getStatus() {
@@ -36,11 +36,11 @@ public class DisplayPost {
         this.totalPosts = totalPosts;
     }
 
-    public List<DisplayPostDetails> getPosts() {
+    public List<DisplayPostDetailsResponse> getPosts() {
         return posts;
     }
 
-    public void setPosts(List<DisplayPostDetails> posts) {
+    public void setPosts(List<DisplayPostDetailsResponse> posts) {
         this.posts = posts;
     }
 

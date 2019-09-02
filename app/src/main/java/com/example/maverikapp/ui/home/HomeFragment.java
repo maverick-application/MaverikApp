@@ -3,7 +3,6 @@ package com.example.maverikapp.ui.home;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -24,11 +23,9 @@ import android.widget.Toast;
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.maverikapp.R;
 import com.example.maverikapp.adapter.FeedsAdapter;
-import com.example.maverikapp.api.Constants;
 import com.example.maverikapp.api.RetrofitClient;
-import com.example.maverikapp.data_models.DisplayPost;
-import com.example.maverikapp.data_models.DisplayPostDetails;
-import com.example.maverikapp.data_models.PostLikeModel;
+import com.example.maverikapp.pojo_response.posts.DisplayPostResponse;
+import com.example.maverikapp.pojo_response.posts.DisplayPostDetailsResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,14 +34,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static android.content.Context.MODE_PRIVATE;
-
 public class HomeFragment extends Fragment {
 
     private View hfView;
     private RecyclerView hfRecyclerView;
     private RecyclerView.LayoutManager hfLayoutManager;
-    private List<DisplayPostDetails> hfPosts = new ArrayList<>();
+    private List<DisplayPostDetailsResponse> hfPosts = new ArrayList<>();
     private FeedsAdapter hfAdapter;
     private ScrollView hfScrollView;
     private RelativeLayout hfRelativeLayout;
@@ -88,14 +83,14 @@ public class HomeFragment extends Fragment {
     public void loadJson(){
         try{
 
-            final Call<DisplayPost> hfCall = RetrofitClient
+            final Call<DisplayPostResponse> hfCall = RetrofitClient
                     .getInstance()
                     .getApi()
                     .getPosts("4");
 
-            hfCall.enqueue(new Callback<DisplayPost>() {
+            hfCall.enqueue(new Callback<DisplayPostResponse>() {
                 @Override
-                public void onResponse(Call<DisplayPost> call, Response<DisplayPost> response) {
+                public void onResponse(Call<DisplayPostResponse> call, Response<DisplayPostResponse> response) {
                     if(response.isSuccessful() && response.body().getPosts() != null){
 
                         if(!hfPosts.isEmpty()){
@@ -124,20 +119,20 @@ public class HomeFragment extends Fragment {
                         @Override
                         public void onItemClick(View view, int position) {
                             Intent na = new Intent(getContext(),FullViewPost.class);
-                            DisplayPostDetails displayPostDetails = hfPosts.get(position);
-                            na.putExtra("title",displayPostDetails.getP_name());
-                            na.putExtra("desc",displayPostDetails.getP_desc());
-                            na.putExtra("img",displayPostDetails.getP_img());
-                            na.putExtra("like",displayPostDetails.getP_likes());
-                            na.putExtra("time",displayPostDetails.getP_time());
-                            na.putExtra("user",displayPostDetails.getP_id());
+                            DisplayPostDetailsResponse displayPostDetailsResponse = hfPosts.get(position);
+                            na.putExtra("title", displayPostDetailsResponse.getP_name());
+                            na.putExtra("desc", displayPostDetailsResponse.getP_desc());
+                            na.putExtra("img", displayPostDetailsResponse.getP_img());
+                            na.putExtra("like", displayPostDetailsResponse.getP_likes());
+                            na.putExtra("time", displayPostDetailsResponse.getP_time());
+                            na.putExtra("user", displayPostDetailsResponse.getP_id());
                             startActivity(na);
 
                         }
                     });
                 }
                 @Override
-                public void onFailure(Call<DisplayPost> call, Throwable t) {
+                public void onFailure(Call<DisplayPostResponse> call, Throwable t) {
                     Toast.makeText(getContext(), "Failed :"+t.getMessage().trim(), Toast.LENGTH_LONG).show();
                     Log.e("rror",t.getMessage());
                 }

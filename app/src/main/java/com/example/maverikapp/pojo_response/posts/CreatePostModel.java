@@ -1,4 +1,4 @@
-package com.example.maverikapp.data_models;
+package com.example.maverikapp.pojo_response.posts;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -21,9 +21,7 @@ public class CreatePostModel {
     @Expose
     private String p_user_id;
 
-    @SerializedName("p_img_name")
-    @Expose
-    private String p_img_name;
+
 
 
     @SerializedName("MESSAGE")

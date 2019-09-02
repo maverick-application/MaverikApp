@@ -18,8 +18,13 @@
     <string name="_2nd">2nd</string>
     <string name="_3rd">3rd</string>
     <string name="_4th">4th</string>
-    <string name="already_a_user_login">already a user ? login</string>
+    <string name="already_a_user_login">already a userDetailsResponse ? login</string>
     <string name="todo">TODO</string>
     <string name="username">username</string>
-    <string name="not_a_user_signup">not a user ? signup</string>
+    <string name="not_a_user_signup">not a userDetailsResponse ? signup</string>
+    <string name="date_of_birth">date of birth</string>
+    <string name="gender">gender :</string>
+    <string name="b_tech">b.tech :</string>
+    <string name="level">level :</string>
+    <string name="roleQ">role :</string>
 </resources>
