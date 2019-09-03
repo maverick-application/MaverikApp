@@ -2,7 +2,7 @@ package com.example.maverikapp.api;
 
 import com.example.maverikapp.pojo_response.auth.AuthenticationResponse;
 import com.example.maverikapp.pojo_response.posts.PostLikeModel;
-import com.example.maverikapp.pojo_response.posts.CreatePostModel;
+import com.example.maverikapp.pojo_response.posts.CreatePostResponse;
 import com.example.maverikapp.pojo_response.posts.DisplayPostResponse;
 
 import retrofit2.Call;
@@ -40,11 +40,11 @@ public interface Api {
 
 
     @Headers("Content-Type: application/json")
-    @GET("/posts/display_all_post.php")
-    Call<DisplayPostResponse> getPosts(@Header("userid") String userid);
+    @GET("posts/display_all_posts.php")
+    Call<DisplayPostResponse> getPosts(@Header("USER") String USER);
 
     @FormUrlEncoded
-    @POST("/posts/display_all_post.php")
+    @POST("posts/display_all_posts.php")
     Call<PostLikeModel> getLikePost(
             @Field("user_id") String user_id,
             @Field("post_id") String post_id
@@ -52,9 +52,9 @@ public interface Api {
     );
 
     @FormUrlEncoded
-    @POST("/posts/create_post.php")
-    Call<CreatePostModel> createPost(
-            @Field("p_name") String p_name,
+    @POST("posts/create_post.php")
+    Call<CreatePostResponse> createPost(
+            @Field("p_title") String p_title,
             @Field("p_desc") String p_desc,
             @Field("p_user_id") String p_user_id,
             @Field("p_img_name") String p_img_name,

@@ -7,34 +7,44 @@ import java.util.List;
 
 public class DisplayPostResponse {
 
-    @SerializedName("status")
+    @SerializedName("USER")
     @Expose
-    private String status;
+    private String USER;
 
-    @SerializedName("totalPosts")
+    @SerializedName("message")
     @Expose
-    private String totalPosts;
+    private String message;
+
+    @SerializedName("total_posts")
+    @Expose
+    private String total_posts;
 
     @SerializedName("posts")
     @Expose
     private List<DisplayPostDetailsResponse> posts;
 
 
-    public String getStatus() {
-        return status;
+
+
+
+
+
+    public String getMessage() {
+        return message;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public String getTotalPosts() {
-        return totalPosts;
+    public String getTotal_posts() {
+        return total_posts;
     }
 
-    public void setTotalPosts(String totalPosts) {
-        this.totalPosts = totalPosts;
+    public void setTotal_posts(String total_posts) {
+        this.total_posts = total_posts;
     }
+
 
     public List<DisplayPostDetailsResponse> getPosts() {
         return posts;

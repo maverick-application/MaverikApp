@@ -86,12 +86,13 @@ public class HomeFragment extends Fragment {
             final Call<DisplayPostResponse> hfCall = RetrofitClient
                     .getInstance()
                     .getApi()
-                    .getPosts("4");
+                    .getPosts("1");
 
             hfCall.enqueue(new Callback<DisplayPostResponse>() {
                 @Override
                 public void onResponse(Call<DisplayPostResponse> call, Response<DisplayPostResponse> response) {
-                    if(response.isSuccessful() && response.body().getPosts() != null){
+                    DisplayPostResponse postResponse = response.body();
+                    if(Integer.parseInt(postResponse.getTotal_posts()) > 0){
 
                         if(!hfPosts.isEmpty()){
                             hfPosts.clear();
@@ -110,7 +111,7 @@ public class HomeFragment extends Fragment {
 
 
                     }else {
-                        Toast.makeText(getContext(), "No Result", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "No Result"+postResponse.getMessage()+"  "+response.body().getTotal_posts(), Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -120,7 +121,7 @@ public class HomeFragment extends Fragment {
                         public void onItemClick(View view, int position) {
                             Intent na = new Intent(getContext(),FullViewPost.class);
                             DisplayPostDetailsResponse displayPostDetailsResponse = hfPosts.get(position);
-                            na.putExtra("title", displayPostDetailsResponse.getP_name());
+                            na.putExtra("title", displayPostDetailsResponse.getP_title());
                             na.putExtra("desc", displayPostDetailsResponse.getP_desc());
                             na.putExtra("img", displayPostDetailsResponse.getP_img());
                             na.putExtra("like", displayPostDetailsResponse.getP_likes());

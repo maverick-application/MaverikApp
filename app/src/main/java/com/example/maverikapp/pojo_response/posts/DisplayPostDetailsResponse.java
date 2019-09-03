@@ -9,9 +9,9 @@ public class DisplayPostDetailsResponse {
     @Expose
     private String p_id;
 
-    @SerializedName("p_name")
+    @SerializedName("p_title")
     @Expose
-    private String p_name;
+    private String p_title;
 
     @SerializedName("p_desc")
     @Expose
@@ -58,12 +58,12 @@ public class DisplayPostDetailsResponse {
         this.p_id = p_id;
     }
 
-    public String getP_name() {
-        return p_name;
+    public String getP_title() {
+        return p_title;
     }
 
-    public void setP_name(String p_name) {
-        this.p_name = p_name;
+    public void setP_title(String p_title) {
+        this.p_title = p_title;
     }
 
     public String getP_desc() {

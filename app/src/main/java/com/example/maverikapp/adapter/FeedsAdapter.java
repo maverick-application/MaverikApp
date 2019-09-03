@@ -84,7 +84,7 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
 //                .transition(DrawableTransitionOptions.withCrossFade())
 //                .into(holder.faImg);
 
-        holder.faName.setText(model.getP_name());
+        holder.faName.setText(model.getP_title());
         holder.faTime.setText(model.getP_time());
         holder.faLikesCount.setText(model.getP_likes());
         holder.faUser.setText(model.getP_id());
@@ -133,7 +133,7 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
             @Override
             public void onClick(View v) {
                 Intent na = new Intent(faContext, FullViewPost.class);
-                na.putExtra("title", model.getP_name());
+                na.putExtra("title", model.getP_title());
                 na.putExtra("desc", model.getP_desc());
                 na.putExtra("img", model.getP_img());
                 na.putExtra("like_count", model.getP_likes());

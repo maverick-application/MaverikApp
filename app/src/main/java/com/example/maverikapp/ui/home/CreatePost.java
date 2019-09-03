@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import com.example.maverikapp.R;
 import com.example.maverikapp.api.RetrofitClient;
-import com.example.maverikapp.pojo_response.posts.CreatePostModel;
+import com.example.maverikapp.pojo_response.posts.CreatePostResponse;
 import com.example.maverikapp.ui.MainActivity;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
@@ -82,19 +82,19 @@ public class CreatePost extends AppCompatActivity {
                 cpImgName = UUID.randomUUID().toString();
                 cpImg = cpImgBase64;
 
-                final Call<CreatePostModel> hfCall = RetrofitClient
+                final Call<CreatePostResponse> hfCall = RetrofitClient
                         .getInstance()
                         .getApi()
                         .createPost(cpTitle,cpDesc,cpUserId,cpImgName,cpImg);
-                hfCall.enqueue(new Callback<CreatePostModel>() {
+                hfCall.enqueue(new Callback<CreatePostResponse>() {
                     @Override
-                    public void onResponse(Call<CreatePostModel> call, Response<CreatePostModel> response) {
-                        CreatePostModel createPostModel = response.body();
-                        if (createPostModel != null) {
-                            if(createPostModel.getSTATUS()  == 200){
+                    public void onResponse(Call<CreatePostResponse> call, Response<CreatePostResponse> response) {
+                        CreatePostResponse createPostResponse = response.body();
+                        if (createPostResponse != null) {
+                            if(createPostResponse.getResult()  == 1){
 
                                 cpProgressBar.setVisibility(View.GONE);
-                                Toast.makeText(CreatePost.this,createPostModel.getMESSAGE(),Toast.LENGTH_LONG).show();
+                                Toast.makeText(CreatePost.this, createPostResponse.getMessage(),Toast.LENGTH_LONG).show();
                                 Intent na = new Intent(CreatePost.this, MainActivity.class);
                                 startActivity(na);
 
@@ -103,13 +103,13 @@ public class CreatePost extends AppCompatActivity {
                                 cpProgressBar.setVisibility(View.GONE);
                             }
                         }else{
-                            Toast.makeText(CreatePost.this, "Response Empty"+response.errorBody()+"   "+createPostModel.getMESSAGE(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CreatePost.this, "Response Empty"+response.errorBody()+"   "+ createPostResponse.getMessage(), Toast.LENGTH_SHORT).show();
                             Log.d("Error : ",response.errorBody().toString());
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<CreatePostModel> call, Throwable t) {
+                    public void onFailure(Call<CreatePostResponse> call, Throwable t) {
                         Toast.makeText(CreatePost.this, "Error : "+t.getMessage().toString(), Toast.LENGTH_SHORT).show();
                         cpProgressBar.setVisibility(View.GONE);
                     }
