@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.maverikapp.R;
+import com.example.maverikapp.pojo_response.posts.DisplayPostResponse;
 import com.example.maverikapp.utils.Constants;
 import com.example.maverikapp.api.RetrofitClient;
 import com.example.maverikapp.pojo_response.posts.DisplayPostDetailsResponse;
@@ -99,25 +101,35 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
             @Override
             public void onClick(View v) {
 
-                try {
-                    hfSharedPerferences = faContext.getSharedPreferences(Constants.USER_DETAILS,MODE_PRIVATE);
-                }catch (Exception e){
-                    Toast.makeText(faContext,"Error :"+e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-                user_id = hfSharedPerferences.getString(Constants.UNIQUE_ID,"");
+
+                hfSharedPerferences = faContext.getSharedPreferences(Constants.USER_DETAILS,MODE_PRIVATE);
+                user_id = hfSharedPerferences.getString(Constants.USER_ID,"");
+
+                Toast.makeText(faContext, "User Id : "+user_id , Toast.LENGTH_SHORT).show();
 
                 final Call<PostLikeModel> likeModelCall = RetrofitClient
                         .getInstance()
                         .getApi()
-                        .getLikePost(user_id,model.getP_id());
+                        .getLikePost("11",model.getP_id());
                 likeModelCall.enqueue(new Callback<PostLikeModel>() {
                     @Override
                     public void onResponse(Call<PostLikeModel> call, Response<PostLikeModel> response) {
-                        if(response.body().getMessage().equals("yes")){
-                            holder.faLike.setImageResource(R.drawable.ic_like_red);
+
+                        PostLikeModel postLike = response.body();
+
+                        if (postLike != null){
+                            if(response.body().getResult() == 1){
+                                holder.faLike.setImageResource(R.drawable.ic_like_red);
+                                Toast.makeText(faContext,postLike.getMessage()+"  Red",Toast.LENGTH_SHORT).show();
+                            }
+                            else{
+                                holder.faLike.setImageResource(R.drawable.ic_like_black);
+                                Toast.makeText(faContext,postLike.getMessage()+"  Black userId :"+user_id+" postId :"+model.getP_id(),Toast.LENGTH_SHORT).show();
+                            }
+                        }else{
+                            Log.e("msgM",postLike.getMessage()+" "+postLike.getResult());
                         }
-                        else
-                            holder.faLike.setImageResource(R.drawable.ic_like_black);
+
                     }
 
                     @Override
@@ -147,7 +159,7 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
 
     @Override
     public int getItemCount() {
-        return faList.size();
+        return 4;
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
@@ -161,7 +173,8 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView faName, faDesc, faTime, faUser, faLikesCount;
-        ImageView faImg,faLike;
+        ImageView faImg;
+        ImageButton faLike;
         ProgressBar faProgressBar;
         CardView faCardView;
         OnItemClickListener onItemClickListener;
@@ -174,7 +187,7 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
             faName = itemView.findViewById(R.id.inf_title);
             faTime = itemView.findViewById(R.id.inf_time);
             faUser = itemView.findViewById(R.id.inf_user_name);
-            faLike = itemView.findViewById(R.id.inf_like);
+            faLike = itemView.findViewById(R.id.inf_like_button);
             faLikesCount = itemView.findViewById(R.id.inf_like_count);
             faImg = itemView.findViewById(R.id.inf_feed_img);
             faProgressBar = itemView.findViewById(R.id.inf_progress_bar);

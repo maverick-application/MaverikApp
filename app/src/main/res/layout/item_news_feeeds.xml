@@ -102,14 +102,13 @@
             android:paddingBottom="5dp"
             >
 
-            <ImageView
-                android:id="@+id/inf_like"
+            <ImageButton
+                android:id="@+id/inf_like_button"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
+                android:background="@color/white"
                 android:contentDescription="@string/todo"
                 android:src="@drawable/ic_like_black"
-                android:clickable="true"
-                android:focusable="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -125,7 +124,7 @@
                 android:textColor="@color/colorAccent"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/inf_like"
+                app:layout_constraintStart_toEndOf="@+id/inf_like_button"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView

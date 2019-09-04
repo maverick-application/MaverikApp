@@ -86,7 +86,7 @@ public class HomeFragment extends Fragment {
             final Call<DisplayPostResponse> hfCall = RetrofitClient
                     .getInstance()
                     .getApi()
-                    .getPosts("1");
+                    .getPosts("11");
 
             hfCall.enqueue(new Callback<DisplayPostResponse>() {
                 @Override

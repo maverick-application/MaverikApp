@@ -57,7 +57,7 @@ public class ProfileFragment extends Fragment {
                 editor.putBoolean(Constants.IS_LOGGED_IN,false);
                 editor.putString(Constants.EMAIL,"");
                 editor.putString(Constants.NAME,"");
-                editor.putString(Constants.UNIQUE_ID,"");
+                editor.putString(Constants.USER_ID,"");
                 editor.apply();
 
                 Intent na = new Intent(getActivity(), StartUp.class);

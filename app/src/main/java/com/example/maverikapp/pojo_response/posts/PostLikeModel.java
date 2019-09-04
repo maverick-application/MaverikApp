@@ -17,6 +17,13 @@ public class PostLikeModel {
     @Expose
     private String message;
 
+    @SerializedName("result")
+    @Expose
+    private int result;
+
+    public int getResult() {
+        return result;
+    }
 
     public String getMessage() {
         return message;

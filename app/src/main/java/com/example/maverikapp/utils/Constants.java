@@ -19,7 +19,6 @@ public class Constants {
     public static final String LEVEL = "level";
     public static final String ROLE = "role";
     public static final String DOB = "dob";
-    public static final String UNIQUE_ID = "unique_id";
 
     public static final String USER_DETAILS = "user_details";
 
