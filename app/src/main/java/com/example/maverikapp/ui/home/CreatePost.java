@@ -2,6 +2,7 @@ package com.example.maverikapp.ui.home;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import com.example.maverikapp.R;
 import com.example.maverikapp.api.RetrofitClient;
 import com.example.maverikapp.pojo_response.posts.CreatePostResponse;
 import com.example.maverikapp.ui.MainActivity;
+import com.example.maverikapp.utils.Constants;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -40,6 +42,7 @@ public class CreatePost extends AppCompatActivity {
     private String cpTitle, cpDesc, cpLink, cpImgName, cpImg,cpUserId;
     private ImageView cpImageView;
     private ProgressBar cpProgressBar;
+    private SharedPreferences cpSharedPreference;
 
     private Uri postImageUri;
     private byte[] cpImgData;
@@ -62,11 +65,11 @@ public class CreatePost extends AppCompatActivity {
         findViewById(R.id.cf_img).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CropImage.activity()
-                        .setGuidelines(CropImageView.Guidelines.ON)
-                        .setMinCropResultSize(512, 512)
-                        .setAspectRatio(1, 1)
-                        .start(CreatePost.this);
+                    CropImage.activity()
+                            .setGuidelines(CropImageView.Guidelines.ON)
+                            .setMinCropResultSize(512, 512)
+                            .setAspectRatio(1, 1)
+                            .start(CreatePost.this);
             }
         });
 
@@ -74,8 +77,8 @@ public class CreatePost extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 cpProgressBar.setVisibility(View.VISIBLE);
-
-                cpUserId = "102";
+                cpSharedPreference = getApplicationContext().getSharedPreferences(Constants.USER_DETAILS,MODE_PRIVATE);
+                cpUserId = cpSharedPreference.getString(Constants.USER_ID,"No User Id");
                 cpTitle = cpEditTitle.getText().toString();
                 cpDesc = cpEditDesc.getText().toString();
                 cpLink = cpEditLink.getText().toString();

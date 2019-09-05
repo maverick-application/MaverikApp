@@ -37,8 +37,6 @@ public class LoginFragment extends Fragment {
     private ProgressBar lfProgressBar;
     private SharedPreferences lfPref;
     private Call<AuthenticationResponse> lfCall;
-    private String format = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
-
 
     public LoginFragment() {
 
@@ -70,7 +68,7 @@ public class LoginFragment extends Fragment {
                             Toast.makeText(getContext(), "password must contain 8 letters", Toast.LENGTH_SHORT).show();
                         }
                         lfProgressBar.setVisibility(View.VISIBLE);
-                        lfLinearLayout.setClickable(false);
+                        lfLinearLayout.setVisibility(View.GONE);
                         loginProcessWithRetrofit(lfUsername,lfPassword);
                     }
 
@@ -113,9 +111,13 @@ public class LoginFragment extends Fragment {
 
                     }else{
                         Toast.makeText(getContext(),"try again after some time"+authResp.getResult()+"      "+authResp.getMessage(),Toast.LENGTH_LONG).show();
+                        lfProgressBar.setVisibility(View.GONE);
+                        lfLinearLayout.setVisibility(View.VISIBLE);
                     }
                 }else{
                     Toast.makeText(getContext(),"error in network",Toast.LENGTH_LONG).show();
+                    lfProgressBar.setVisibility(View.GONE);
+                    lfLinearLayout.setVisibility(View.VISIBLE);
                 }
 
                     }
@@ -123,7 +125,8 @@ public class LoginFragment extends Fragment {
             @Override
             public void onFailure(Call<AuthenticationResponse> call, Throwable t) {
                 Toast.makeText(getContext(),"Error Occured : "+t.getMessage(),Toast.LENGTH_LONG).show();
-                Log.d("Maverick",t.getMessage());
+                lfProgressBar.setVisibility(View.GONE);
+                lfLinearLayout.setVisibility(View.VISIBLE);
             }
         });
     }

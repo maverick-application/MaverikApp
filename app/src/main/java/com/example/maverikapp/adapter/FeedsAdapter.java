@@ -1,7 +1,6 @@
 package com.example.maverikapp.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,15 +14,14 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.maverikapp.R;
-import com.example.maverikapp.pojo_response.posts.DisplayPostResponse;
 import com.example.maverikapp.utils.Constants;
 import com.example.maverikapp.api.RetrofitClient;
 import com.example.maverikapp.pojo_response.posts.DisplayPostDetailsResponse;
 import com.example.maverikapp.pojo_response.posts.PostLikeModel;
-import com.example.maverikapp.ui.home.FullViewPost;
 
 import java.util.List;
 
@@ -38,7 +36,7 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
     private List<DisplayPostDetailsResponse> faList;
     private Context faContext;
     private OnItemClickListener onItemClickListener;
-    private SharedPreferences hfSharedPerferences;
+    private SharedPreferences hfSharedPreferences;
     private  String user_id;
 
     public FeedsAdapter(List<DisplayPostDetailsResponse> faList, Context faContext) {
@@ -89,7 +87,7 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
         holder.faName.setText(model.getP_title());
         holder.faTime.setText(model.getP_time());
         holder.faLikesCount.setText(model.getP_likes());
-        holder.faUser.setText(model.getP_id());
+        holder.faUser.setText(model.getP_college().getCollege_name());
 
         if(model.getP_like_status().equals("yes")){
             holder.faLike.setImageResource(R.drawable.ic_like_red);
@@ -102,8 +100,8 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
             public void onClick(View v) {
 
 
-                hfSharedPerferences = faContext.getSharedPreferences(Constants.USER_DETAILS,MODE_PRIVATE);
-                user_id = hfSharedPerferences.getString(Constants.USER_ID,"");
+                hfSharedPreferences = faContext.getSharedPreferences(Constants.USER_DETAILS,MODE_PRIVATE);
+                user_id = hfSharedPreferences.getString(Constants.USER_ID,"");
 
                 Toast.makeText(faContext, "User Id : "+user_id , Toast.LENGTH_SHORT).show();
 
@@ -144,13 +142,7 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
         holder.faImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent na = new Intent(faContext, FullViewPost.class);
-                na.putExtra("title", model.getP_title());
-                na.putExtra("desc", model.getP_desc());
-                na.putExtra("img", model.getP_img());
-                na.putExtra("like_count", model.getP_likes());
-                na.putExtra("like",model.getP_like_status());
-                na.putExtra("time", model.getP_time());
+                Navigation.findNavController(v).navigate(R.id.fullViewPostFragment);
             }
         });
 

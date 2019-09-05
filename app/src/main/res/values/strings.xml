@@ -21,10 +21,19 @@
     <string name="already_a_user_login">already a userDetailsResponse ? login</string>
     <string name="todo">TODO</string>
     <string name="username">username</string>
-    <string name="not_a_user_signup">not a userDetailsResponse ? signup</string>
+    <string name="not_a_user_signup">not a user ? signup</string>
     <string name="date_of_birth">date of birth</string>
     <string name="gender">gender :</string>
     <string name="b_tech">b.tech :</string>
     <string name="level">level :</string>
     <string name="roleQ">role :</string>
+    <string name="member">member</string>
+    <string name="admin">admin</string>
+    <string name="like_number">35</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id essit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id es</string>
+    <string name="edit_post">edit post</string>
+    <string name="image_upload">image upload :</string>
+    <string name="post_title">post title</string>
+    <string name="post_description">post description</string>
+    <string name="submit">submit</string>
 </resources>

@@ -33,6 +33,14 @@ public class DisplayPostDetailsResponse {
     @Expose
     private String p_like_status;
 
+    @SerializedName("p_user_id")
+    @Expose
+    private String p_user_id;
+
+
+    @SerializedName("p_college")
+    @Expose
+    private DisplayPostCollegeDetails p_college;
 
 
     public String getP_likes() {
@@ -90,7 +98,16 @@ public class DisplayPostDetailsResponse {
         this.p_time = p_time;
     }
 
+    public String getP_user_id() {
+        return p_user_id;
+    }
 
+    public DisplayPostCollegeDetails getP_college() {
+        return p_college;
+    }
 
+    public void setP_college(DisplayPostCollegeDetails p_college) {
+        this.p_college = p_college;
+    }
 
 }

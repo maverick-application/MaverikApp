@@ -1,9 +1,11 @@
 package com.example.maverikapp.api;
 
 import com.example.maverikapp.pojo_response.auth.AuthenticationResponse;
+import com.example.maverikapp.pojo_response.posts.EditPostResponse;
 import com.example.maverikapp.pojo_response.posts.PostLikeModel;
 import com.example.maverikapp.pojo_response.posts.CreatePostResponse;
 import com.example.maverikapp.pojo_response.posts.DisplayPostResponse;
+import com.google.android.gms.common.annotation.KeepForSdkWithMembers;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -59,5 +61,14 @@ public interface Api {
             @Field("p_user_id") String p_user_id,
             @Field("p_img_name") String p_img_name,
             @Field("p_img") String p_img
+    );
+
+    @FormUrlEncoded
+    @POST("posts/edit_post.php")
+    Call<EditPostResponse> editPost(
+      @Field("title") String title,
+      @Field("desc") String desc,
+      @Field("img") String img,
+      @Field("post_id") String post_id
     );
 }
