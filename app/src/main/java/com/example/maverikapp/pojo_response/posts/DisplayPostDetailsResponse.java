@@ -17,6 +17,14 @@ public class DisplayPostDetailsResponse {
     @Expose
     private String p_desc;
 
+    @SerializedName("p_time")
+    @Expose
+    private String p_time;
+
+    @SerializedName("p_user_id")
+    @Expose
+    private String p_user_id;
+
     @SerializedName("p_img")
     @Expose
     private String p_img;
@@ -25,22 +33,33 @@ public class DisplayPostDetailsResponse {
     @Expose
     private String p_likes;
 
-    @SerializedName("p_time")
+    @SerializedName("p_links")
     @Expose
-    private String p_time;
+    private String p_links;
+
+    @SerializedName("p_college")
+    @Expose
+    private DisplayPostCollegeDetails p_college;
+
 
     @SerializedName("p_like_status")
     @Expose
     private String p_like_status;
 
-    @SerializedName("p_user_id")
-    @Expose
-    private String p_user_id;
+
+    public void setP_user_id(String p_user_id) {
+        this.p_user_id = p_user_id;
+    }
+
+    public String getP_links() {
+        return p_links;
+    }
+
+    public void setP_links(String p_links) {
+        this.p_links = p_links;
+    }
 
 
-    @SerializedName("p_college")
-    @Expose
-    private DisplayPostCollegeDetails p_college;
 
 
     public String getP_likes() {

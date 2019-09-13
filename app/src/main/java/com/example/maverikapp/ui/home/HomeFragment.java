@@ -1,7 +1,6 @@
 package com.example.maverikapp.ui.home;
 
 
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -50,7 +49,7 @@ public class HomeFragment extends Fragment {
     private RelativeLayout hfRelativeLayout;
     private LottieAnimationView networkError;
     private ProgressBar hfProgressBar;
-    private SharedPreferences hfSharedPreferences;
+    private SharedPreferences hfPostPref,hfUserPref;
 
 
     public HomeFragment() {
@@ -67,7 +66,8 @@ public class HomeFragment extends Fragment {
 
         hfProgressBar = (ProgressBar)hfView.findViewById(R.id.h_progress_bar);
 
-        hfSharedPreferences = getActivity().getSharedPreferences(Constants.POST_DETAILS,Context.MODE_PRIVATE);
+        hfPostPref = getActivity().getSharedPreferences(Constants.POST_DETAILS,Context.MODE_PRIVATE);
+        hfUserPref = getActivity().getSharedPreferences(Constants.USER_DETAILS,Context.MODE_PRIVATE);
 
         networkError = hfView.findViewById(R.id.h_network_gif);
         hfView.findViewById(R.id.h_network).setOnClickListener(new View.OnClickListener() {
@@ -92,12 +92,14 @@ public class HomeFragment extends Fragment {
     }
 
     public void loadJson(){
+
+
         try{
 
             final Call<DisplayPostResponse> hfCall = RetrofitClient
                     .getInstance()
                     .getApi()
-                    .getPosts("11");
+                    .getPosts(hfUserPref.getString(Constants.USER_ID,"1"));
 
             hfCall.enqueue(new Callback<DisplayPostResponse>() {
                 @Override
@@ -135,21 +137,21 @@ public class HomeFragment extends Fragment {
                         public void onItemClick(View view, int position) {
 
                             // Storing of all the data into the shared preference
-                           SharedPreferences.Editor storePosts = hfSharedPreferences.edit();
+                            Intent storePosts = new Intent(getContext(),FullPostView.class);
                             DisplayPostDetailsResponse dPostDetails = hfPosts.get(position);
-                            storePosts.putString(Constants.P_ID,dPostDetails.getP_id());
-                            storePosts.putString(Constants.TITLE,dPostDetails.getP_title());
-                            storePosts.putString(Constants.DESC,dPostDetails.getP_desc());
-                            storePosts.putString(Constants.TIME,dPostDetails.getP_time());
-                            storePosts.putString(Constants.LIKE_STATUS,dPostDetails.getP_like_status());
-                            storePosts.putString(Constants.LIKE,dPostDetails.getP_likes());
-                            storePosts.putString(Constants.IMG,dPostDetails.getP_img());
-                            storePosts.putString(Constants.P_USER_ID,dPostDetails.getP_user_id());
-                            storePosts.putString(Constants.COLLEGE_ID,dPostDetails.getP_college().getCollege_id());
-                            storePosts.putString(Constants.COLLEGE_IMG,dPostDetails.getP_college().getCollege_img());
-                            storePosts.putString(Constants.COLLEGE_NAME,dPostDetails.getP_college().getCollege_name());
-                            storePosts.apply();
-                            Navigation.findNavController(hfView).navigate(R.id.fullViewPostFragment);
+                            storePosts.putExtra(Constants.P_ID,dPostDetails.getP_id());
+                            storePosts.putExtra(Constants.P_TITLE,dPostDetails.getP_title());
+                            storePosts.putExtra(Constants.P_DESC,dPostDetails.getP_desc());
+                            storePosts.putExtra(Constants.P_TIME,dPostDetails.getP_time());
+                            storePosts.putExtra(Constants.P_LIKE_STATUS,dPostDetails.getP_like_status());
+                            storePosts.putExtra(Constants.P_LINKS,dPostDetails.getP_links());
+                            storePosts.putExtra(Constants.P_LIKE,dPostDetails.getP_likes());
+                            storePosts.putExtra(Constants.P_IMG,dPostDetails.getP_img());
+                            storePosts.putExtra(Constants.P_USER_ID,dPostDetails.getP_user_id());
+                            storePosts.putExtra(Constants.P_COLLEGE_ID,dPostDetails.getP_college().getCollege_id());
+                            storePosts.putExtra(Constants.P_COLLEGE_IMG,dPostDetails.getP_college().getCollege_img());
+                            storePosts.putExtra(Constants.P_COLLEGE_NAME,dPostDetails.getP_college().getCollege_name());
+                            startActivity(storePosts);
 
                         }
                     });
@@ -182,6 +184,13 @@ public class HomeFragment extends Fragment {
             networkError.setProgress(0);
             networkError.playAnimation();
         }
+
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
     }
 
     private boolean isNetworkAvailable() {

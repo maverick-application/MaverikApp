@@ -21,7 +21,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.maverikapp.R;
 import com.example.maverikapp.api.RetrofitClient;
-import com.example.maverikapp.pojo_response.posts.EditPostResponse;
+import com.example.maverikapp.pojo_response.posts.PostResponse;
 import com.example.maverikapp.utils.Constants;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -41,15 +41,16 @@ import static android.app.Activity.RESULT_OK;
 public class EditPostFragment extends Fragment {
 
     private View epView;
-    private EditText epEditTitle,epEditDesc;
+    private EditText epEditTitle,epEditDesc,epEditLink;
     private ImageView epImgView;
-    private String epTitle,epDesc,epImg,epPostId,epUserId;
+    private String epTitle,epDesc,epImg,epPostId,epUserId,epLink;
     private SharedPreferences epSharedPref;
     private FloatingActionButton epDeleteButton;
     private Uri postImageUri;
     private byte[] epImgData;
     private String epImgBase64;
-    private Call<EditPostResponse> epCall;
+    private Call<PostResponse> epCallEdit,epCallDel;
+    private int post_id;
 
 
     public EditPostFragment() {
@@ -65,19 +66,24 @@ public class EditPostFragment extends Fragment {
 
        epSharedPref = getActivity().getSharedPreferences(Constants.POST_DETAILS, Context.MODE_PRIVATE);
 
-       epTitle = epSharedPref.getString(Constants.TITLE,"Title");
-       epDesc = epSharedPref.getString(Constants.DESC,"Desc");
-       epImg = epSharedPref.getString(Constants.IMG,"img");
+       epTitle = epSharedPref.getString(Constants.P_TITLE,"Title");
+       epDesc = epSharedPref.getString(Constants.P_DESC,"Desc");
+       epImg = epSharedPref.getString(Constants.P_IMG,"img");
+       epLink = epSharedPref.getString(Constants.P_LINKS,"links");
        epPostId = epSharedPref.getString(Constants.P_ID,"id");
        epUserId = epSharedPref.getString(Constants.P_USER_ID,"user id");
 
        epEditTitle = (EditText) epView.findViewById(R.id.ep_title);
        epEditDesc = (EditText) epView.findViewById(R.id.ep_desc);
+       epEditLink = (EditText)epView.findViewById(R.id.ep_links);
        epImgView = (ImageView) epView.findViewById(R.id.ep_img);
+       epDeleteButton = (FloatingActionButton)epView.findViewById(R.id.ep_delete);
 
        epEditTitle.setText(epTitle);
        epEditDesc.setText(epDesc);
-       Glide.with(epView).load(epImg).into(epImgView);
+       epEditLink.setText(epLink);
+
+       Glide.with(epView).load("https://en.wikipedia.org/wiki/Google_Images#/media/File:Google_Images_2015_logo.svg").into(epImgView);
 
        epImgView.setOnClickListener(new View.OnClickListener() {
            @Override
@@ -90,27 +96,39 @@ public class EditPostFragment extends Fragment {
            }
        });
 
+       epDeleteButton.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+              delPost(Integer.parseInt(epPostId));
+           }
+       });
+
        epView.findViewById(R.id.ep_submit).setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
 
                String epTitle = epEditTitle.getText().toString();
                String epDesc = epEditDesc.getText().toString();
+               String epLinks = epEditLink.getText().toString();
 
-               epCall = RetrofitClient
+               if(epImgBase64 != null){
+                   epImg = epImgBase64;
+               }
+
+               epCallEdit = RetrofitClient
                        .getInstance()
                        .getApi()
-                       .editPost(epTitle,epDesc,epImgBase64,epPostId);
+                       .editPost(epPostId,epTitle,epDesc,epImg,epLinks);
 
-               epCall.enqueue(new Callback<EditPostResponse>() {
+               epCallEdit.enqueue(new Callback<PostResponse>() {
                    @Override
-                   public void onResponse(Call<EditPostResponse> call, Response<EditPostResponse> response) {
-                       EditPostResponse epResp = response.body();
+                   public void onResponse(Call<PostResponse> call, Response<PostResponse> response) {
+                       PostResponse epResp = response.body();
 
                        if(epResp != null){
 
                            if(epResp.getResult() == 1){
-                               Toast.makeText(getContext(), "successfully uploaded !", Toast.LENGTH_SHORT).show();
+                               Toast.makeText(getContext(), epResp.getMessage(), Toast.LENGTH_SHORT).show();
                            }else{
                                Toast.makeText(getContext(), epResp.getMessage(), Toast.LENGTH_SHORT).show();
                            }
@@ -121,8 +139,8 @@ public class EditPostFragment extends Fragment {
                    }
 
                    @Override
-                   public void onFailure(Call<EditPostResponse> call, Throwable t) {
-                       Toast.makeText(getContext(), "check our internet connection", Toast.LENGTH_SHORT).show();
+                   public void onFailure(Call<PostResponse> call, Throwable t) {
+                       Toast.makeText(getContext(), "Error : "+t.getMessage(), Toast.LENGTH_SHORT).show();
                    }
                });
 
@@ -134,6 +152,39 @@ public class EditPostFragment extends Fragment {
        //Getting the
 
         return epView;
+    }
+
+    //This function is used for the deletion of the post
+    private void delPost(int post_id) {
+
+        epCallDel = RetrofitClient
+                .getInstance()
+                .getApi()
+                .deletePost(post_id);
+        epCallDel.enqueue(new Callback<PostResponse>() {
+            @Override
+            public void onResponse(Call<PostResponse> call, Response<PostResponse> response) {
+
+                PostResponse epResp = response.body();
+
+                if(epResp != null){
+                    if(epResp.getResult() == 1){
+                        Toast.makeText(getContext(), "Post Deleted !", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(getContext(), "Error : "+epResp.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(getContext(), "Error in Network !", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<PostResponse> call, Throwable t) {
+                Toast.makeText(getContext(),"Somthing went wrong !",Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     @Override

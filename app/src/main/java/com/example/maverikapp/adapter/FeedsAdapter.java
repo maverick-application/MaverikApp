@@ -21,7 +21,7 @@ import com.example.maverikapp.R;
 import com.example.maverikapp.utils.Constants;
 import com.example.maverikapp.api.RetrofitClient;
 import com.example.maverikapp.pojo_response.posts.DisplayPostDetailsResponse;
-import com.example.maverikapp.pojo_response.posts.PostLikeModel;
+import com.example.maverikapp.pojo_response.posts.PostResponse;
 
 import java.util.List;
 
@@ -91,7 +91,7 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
 
         if(model.getP_like_status().equals("yes")){
             holder.faLike.setImageResource(R.drawable.ic_like_red);
-        }else{
+        }else {
             holder.faLike.setImageResource(R.drawable.ic_like_black);
         }
 
@@ -105,33 +105,36 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
 
                 Toast.makeText(faContext, "User Id : "+user_id , Toast.LENGTH_SHORT).show();
 
-                final Call<PostLikeModel> likeModelCall = RetrofitClient
+                final Call<PostResponse> likeModelCall = RetrofitClient
                         .getInstance()
                         .getApi()
-                        .getLikePost("11",model.getP_id());
-                likeModelCall.enqueue(new Callback<PostLikeModel>() {
+                        .getLikePost(user_id,model.getP_id());
+                likeModelCall.enqueue(new Callback<PostResponse>() {
                     @Override
-                    public void onResponse(Call<PostLikeModel> call, Response<PostLikeModel> response) {
+                    public void onResponse(Call<PostResponse> call, Response<PostResponse> response) {
 
-                        PostLikeModel postLike = response.body();
-
+                        PostResponse postLike = response.body();
+                        int likes = Integer.parseInt(String.valueOf(holder.faLikesCount.getText()));
                         if (postLike != null){
-                            if(response.body().getResult() == 1){
+                            if(postLike.getStatus() == 1){
                                 holder.faLike.setImageResource(R.drawable.ic_like_red);
-                                Toast.makeText(faContext,postLike.getMessage()+"  Red",Toast.LENGTH_SHORT).show();
+                                holder.faLikesCount.setText(String.valueOf(likes+1));
+                                Toast.makeText(faContext,postLike.getMessage()+"LL" ,Toast.LENGTH_SHORT).show();
                             }
                             else{
                                 holder.faLike.setImageResource(R.drawable.ic_like_black);
-                                Toast.makeText(faContext,postLike.getMessage()+"  Black userId :"+user_id+" postId :"+model.getP_id(),Toast.LENGTH_SHORT).show();
+                                holder.faLikesCount.setText(String.valueOf(likes-1));
+                                Toast.makeText(faContext,postLike.getMessage()+"DD",Toast.LENGTH_SHORT).show();
                             }
                         }else{
                             Log.e("msgM",postLike.getMessage()+" "+postLike.getResult());
+                            Toast.makeText(faContext,"Something has gone wrong !",Toast.LENGTH_SHORT).show();
                         }
 
                     }
 
                     @Override
-                    public void onFailure(Call<PostLikeModel> call, Throwable t) {
+                    public void onFailure(Call<PostResponse> call, Throwable t) {
                         Toast.makeText(faContext, "Network Error"+t.getMessage(), Toast.LENGTH_SHORT).show();
                         Log.d("maa",t.getMessage());
                     }
@@ -139,19 +142,14 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
 
             }
         });
-        holder.faImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.fullViewPostFragment);
-            }
-        });
+
 
 
     }
 
     @Override
     public int getItemCount() {
-        return 4;
+        return 6;
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {

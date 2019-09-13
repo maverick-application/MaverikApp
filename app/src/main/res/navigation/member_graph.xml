@@ -24,8 +24,8 @@
             android:id="@+id/action_homeFragment_to_eventsFragment"
             app:destination="@id/eventsFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_fullViewPostFragment"
-            app:destination="@id/fullViewPostFragment" />
+            android:id="@+id/action_homeFragment_to_fullPostView"
+            app:destination="@id/fullPostView" />
 
     </fragment>
     <fragment
@@ -49,18 +49,18 @@
         android:label="fragment_community"
         tools:layout="@layout/fragment_community" />
     <fragment
-        android:id="@+id/fullViewPostFragment"
-        android:name="com.example.maverikapp.ui.home.FullViewPostFragment"
-        android:label="fragment_full_view_post"
-        tools:layout="@layout/fragment_full_view_post" >
-        <action
-            android:id="@+id/action_fullViewPostFragment_to_editPostFragment"
-            app:destination="@id/editPostFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/editPostFragment"
         android:name="com.example.maverikapp.ui.home.EditPostFragment"
         android:label="fragment_edit_post"
-        tools:layout="@layout/fragment_edit_post" />
+        tools:layout="@layout/fragment_edit_post" >
+        <action
+            android:id="@+id/action_editPostFragment_to_fullPostView"
+            app:destination="@id/fullPostView" />
+    </fragment>
+    <activity
+        android:id="@+id/fullPostView"
+        android:name="com.example.maverikapp.ui.home.FullPostView"
+        android:label="activity_full_post_view"
+        tools:layout="@layout/activity_full_post_view" />
 
 </navigation>

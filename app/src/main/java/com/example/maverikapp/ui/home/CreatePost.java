@@ -19,7 +19,7 @@ import android.widget.Toast;
 
 import com.example.maverikapp.R;
 import com.example.maverikapp.api.RetrofitClient;
-import com.example.maverikapp.pojo_response.posts.CreatePostResponse;
+import com.example.maverikapp.pojo_response.posts.PostResponse;
 import com.example.maverikapp.ui.MainActivity;
 import com.example.maverikapp.utils.Constants;
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -85,14 +85,14 @@ public class CreatePost extends AppCompatActivity {
                 cpImgName = UUID.randomUUID().toString();
                 cpImg = cpImgBase64;
 
-                final Call<CreatePostResponse> hfCall = RetrofitClient
+                final Call<PostResponse> hfCall = RetrofitClient
                         .getInstance()
                         .getApi()
                         .createPost(cpTitle,cpDesc,cpUserId,cpImgName,cpImg);
-                hfCall.enqueue(new Callback<CreatePostResponse>() {
+                hfCall.enqueue(new Callback<PostResponse>() {
                     @Override
-                    public void onResponse(Call<CreatePostResponse> call, Response<CreatePostResponse> response) {
-                        CreatePostResponse createPostResponse = response.body();
+                    public void onResponse(Call<PostResponse> call, Response<PostResponse> response) {
+                        PostResponse createPostResponse = response.body();
                         if (createPostResponse != null) {
                             if(createPostResponse.getResult()  == 1){
 
@@ -112,7 +112,7 @@ public class CreatePost extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(Call<CreatePostResponse> call, Throwable t) {
+                    public void onFailure(Call<PostResponse> call, Throwable t) {
                         Toast.makeText(CreatePost.this, "Error : "+t.getMessage().toString(), Toast.LENGTH_SHORT).show();
                         cpProgressBar.setVisibility(View.GONE);
                     }

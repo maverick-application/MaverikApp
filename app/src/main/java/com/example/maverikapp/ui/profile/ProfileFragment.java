@@ -20,17 +20,13 @@ import com.example.maverikapp.ui.authentication.StartUp;
 
 import static android.content.Context.MODE_PRIVATE;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class ProfileFragment extends Fragment {
 
     private View pfView;
     private SharedPreferences pfPref;
 
     private TextView pfName,pfEmail;
-    private Button pfButton;
-    private String pfId;
 
     public ProfileFragment() {
         // Required empty public constructor

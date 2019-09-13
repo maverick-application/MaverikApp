@@ -24,14 +24,15 @@ public class Constants {
 
     public static final String P_ID = "p_id";
     public static final String P_USER_ID = "p_user_id";
-    public static final String TITLE = "title";
-    public static final String DESC = "desc";
-    public static final String TIME = "time";
-    public static final String LIKE = "like";
-    public static final String LIKE_STATUS = "like_status";
-    public static final String IMG = "img";
-    public static final String COLLEGE_ID = "college_id";
-    public static final String COLLEGE_NAME = "college_name";
-    public static final String COLLEGE_IMG = "college_img";
+    public static final String P_TITLE = "title";
+    public static final String P_DESC = "desc";
+    public static final String P_TIME = "time";
+    public static final String P_LIKE = "like";
+    public static final String P_LINKS = "links";
+    public static final String P_LIKE_STATUS = "like_status";
+    public static final String P_IMG = "img";
+    public static final String P_COLLEGE_ID = "college_id";
+    public static final String P_COLLEGE_NAME = "college_name";
+    public static final String P_COLLEGE_IMG = "college_img";
 
 }

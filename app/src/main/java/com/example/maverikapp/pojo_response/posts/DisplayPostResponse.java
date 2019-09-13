@@ -7,17 +7,18 @@ import java.util.List;
 
 public class DisplayPostResponse {
 
-    @SerializedName("USER")
+    @SerializedName("result")
     @Expose
-    private String USER;
+    private String result;
+
+    @SerializedName("total_posts")
+    @Expose
+    private String total_posts;
 
     @SerializedName("message")
     @Expose
     private String message;
 
-    @SerializedName("total_posts")
-    @Expose
-    private String total_posts;
 
     @SerializedName("posts")
     @Expose

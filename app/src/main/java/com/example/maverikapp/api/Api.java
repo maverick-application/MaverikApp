@@ -1,11 +1,9 @@
 package com.example.maverikapp.api;
 
 import com.example.maverikapp.pojo_response.auth.AuthenticationResponse;
-import com.example.maverikapp.pojo_response.posts.EditPostResponse;
-import com.example.maverikapp.pojo_response.posts.PostLikeModel;
-import com.example.maverikapp.pojo_response.posts.CreatePostResponse;
+import com.example.maverikapp.pojo_response.posts.PostResponse;
+import com.example.maverikapp.pojo_response.posts.PostResponse;
 import com.example.maverikapp.pojo_response.posts.DisplayPostResponse;
-import com.google.android.gms.common.annotation.KeepForSdkWithMembers;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -41,21 +39,25 @@ public interface Api {
 
 
 
+    // This is used for getting all posts
     @Headers("Content-Type: application/json")
     @GET("posts/display_all_posts.php")
     Call<DisplayPostResponse> getPosts(@Header("USER") String USER);
 
+    //This is used for liking the post
     @FormUrlEncoded
     @POST("posts/display_all_posts.php")
-    Call<PostLikeModel> getLikePost(
+    Call<PostResponse> getLikePost(
             @Field("user_id") String user_id,
             @Field("post_id") String post_id
 
     );
 
+    //This is used for the creation of the post
+
     @FormUrlEncoded
     @POST("posts/create_post.php")
-    Call<CreatePostResponse> createPost(
+    Call<PostResponse> createPost(
             @Field("p_title") String p_title,
             @Field("p_desc") String p_desc,
             @Field("p_user_id") String p_user_id,
@@ -63,12 +65,22 @@ public interface Api {
             @Field("p_img") String p_img
     );
 
+    //This is used for the Editing of the post
+
     @FormUrlEncoded
-    @POST("posts/edit_post.php")
-    Call<EditPostResponse> editPost(
+    @POST("posts/edit_posts.php")
+    Call<PostResponse> editPost(
+      @Field("id") String post_id,
       @Field("title") String title,
       @Field("desc") String desc,
       @Field("img") String img,
-      @Field("post_id") String post_id
+      @Field("link") String link
+    );
+
+    //This is used for deleting the post
+    @Headers("Content-Type: application/json")
+    @GET("posts/edit_posts.php")
+    Call<PostResponse> deletePost(
+            @Header("POST") int post_id
     );
 }

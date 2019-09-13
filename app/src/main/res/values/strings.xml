@@ -36,4 +36,5 @@
     <string name="post_title">post title</string>
     <string name="post_description">post description</string>
     <string name="submit">submit</string>
+    <string name="post_links">post links</string>
 </resources>
