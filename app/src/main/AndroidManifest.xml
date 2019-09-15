@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.home.FullPostView"></activity>
+        <activity android:name=".ui.home.EditPost"></activity>
+        <activity android:name=".ui.home.FullPostView" />
         <activity android:name=".ui.home.CreatePost" />
         <activity android:name=".ui.authentication.StartUp">
             <intent-filter>

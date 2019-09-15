@@ -1,6 +1,7 @@
 package com.example.maverikapp.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -86,7 +87,7 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
 
         holder.faName.setText(model.getP_title());
         holder.faTime.setText(model.getP_time());
-        holder.faLikesCount.setText(model.getP_likes());
+        holder.faLikesCount.setText(model.getP_likes()+" likes");
         holder.faUser.setText(model.getP_college().getCollege_name());
 
         if(model.getP_like_status().equals("yes")){
@@ -95,6 +96,25 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
             holder.faLike.setImageResource(R.drawable.ic_like_black);
         }
 
+        /*
+        Share Functionality Button
+         */
+
+        holder.faShareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                String shareBody = "Here is the share content body";
+                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                faContext.startActivity(Intent.createChooser(sharingIntent, "Share via"));
+            }
+        });
+
+        /*
+        Like Functionality Button
+         */
         holder.faLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,7 +169,7 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
 
     @Override
     public int getItemCount() {
-        return 6;
+        return faList.size();
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
@@ -163,13 +183,13 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView faName, faDesc, faTime, faUser, faLikesCount;
-        ImageView faImg;
+        ImageView faImg,faShareButton;
         ImageButton faLike;
         ProgressBar faProgressBar;
         CardView faCardView;
         OnItemClickListener onItemClickListener;
 
-        public MyViewHolder(@NonNull View itemView, OnItemClickListener onItemClickListener) {
+        MyViewHolder(@NonNull View itemView, OnItemClickListener onItemClickListener) {
             super(itemView);
 
             itemView.setOnClickListener(this);
@@ -180,7 +200,9 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.MyViewHolder
             faLike = itemView.findViewById(R.id.inf_like_button);
             faLikesCount = itemView.findViewById(R.id.inf_like_count);
             faImg = itemView.findViewById(R.id.inf_feed_img);
+            faShareButton = itemView.findViewById(R.id.inf_share);
             faProgressBar = itemView.findViewById(R.id.inf_progress_bar);
+
 
             this.onItemClickListener = onItemClickListener;
         }

@@ -9,7 +9,6 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -45,7 +45,7 @@ public class HomeFragment extends Fragment {
     private RecyclerView.LayoutManager hfLayoutManager;
     private List<DisplayPostDetailsResponse> hfPosts = new ArrayList<>();
     private FeedsAdapter hfAdapter;
-    private ScrollView hfScrollView;
+    private LinearLayout hfLinearLayout;
     private RelativeLayout hfRelativeLayout;
     private LottieAnimationView networkError;
     private ProgressBar hfProgressBar;
@@ -61,13 +61,15 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         hfView = inflater.inflate(R.layout.fragment_home, container, false);
 
-        hfScrollView = (ScrollView)hfView.findViewById(R.id.h_parent_layout);
+        hfLinearLayout = (LinearLayout)hfView.findViewById(R.id.h_parent_layout);
         hfRelativeLayout = (RelativeLayout)hfView.findViewById(R.id.h_layout_network);
 
         hfProgressBar = (ProgressBar)hfView.findViewById(R.id.h_progress_bar);
 
         hfPostPref = getActivity().getSharedPreferences(Constants.POST_DETAILS,Context.MODE_PRIVATE);
         hfUserPref = getActivity().getSharedPreferences(Constants.USER_DETAILS,Context.MODE_PRIVATE);
+
+        //Retry Button if the network is not available
 
         networkError = hfView.findViewById(R.id.h_network_gif);
         hfView.findViewById(R.id.h_network).setOnClickListener(new View.OnClickListener() {
@@ -91,7 +93,7 @@ public class HomeFragment extends Fragment {
         return  hfView;
     }
 
-    public void loadJson(){
+    private void loadJson(){
 
 
         try{
@@ -111,6 +113,8 @@ public class HomeFragment extends Fragment {
                             hfPosts.clear();
                             hfProgressBar.setVisibility(View.GONE);
                         }
+
+                        Toast.makeText(getContext(), "Total Posts : "+postResponse.getTotal_posts(), Toast.LENGTH_SHORT).show();
 
                         hfRecyclerView = hfView.findViewById(R.id.h_recycler_view);
                         hfLayoutManager = new LinearLayoutManager(getActivity());
@@ -176,7 +180,7 @@ public class HomeFragment extends Fragment {
         super.onStart();
         hfProgressBar.setVisibility(View.VISIBLE);
         if(isNetworkAvailable()){
-            hfScrollView.setVisibility(View.VISIBLE);
+            hfLinearLayout.setVisibility(View.VISIBLE);
             loadJson();
         }else{
             hfProgressBar.setVisibility(View.GONE);
