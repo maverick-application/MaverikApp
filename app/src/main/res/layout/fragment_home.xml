@@ -7,6 +7,14 @@
     android:background="@color/color"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.home.HomeFragment">
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/h_progress_bar"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -18,7 +26,6 @@
         android:layout_marginBottom="10dp"
 
         />
-    <!-- Custom Action Bar -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -46,21 +53,12 @@
             android:textAllCaps="false"
             android:textStyle="bold" />
     </RelativeLayout>
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:visibility="gone"
-        android:id="@+id/h_parent_layout"
-        >
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/h_parent_layout"
             android:orientation="vertical"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
+            android:layout_marginTop="15dp"
             >
             <TextView
                 android:layout_width="wrap_content"
@@ -69,6 +67,8 @@
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
                 android:textSize="20sp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -77,18 +77,21 @@
                 android:textColor="@color/colorAccent"
                 android:textSize="15sp"
                 android:layout_marginBottom="10dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 />
+
             <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="vertical"
                 android:id="@+id/h_recycler_view"
-                tools:listitem="@layout/item_news_feeeds"
-                >
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:scrollbars="vertical"
+                tools:listitem="@layout/item_news_feeeds">
 
             </androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
-    </ScrollView>
 
 
 </FrameLayout>
+

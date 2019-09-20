@@ -15,23 +15,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.maverikapp.R;
-import com.example.maverikapp.api.Constants;
-import com.example.maverikapp.ui.MainActivity;
+import com.example.maverikapp.utils.Constants;
 import com.example.maverikapp.ui.authentication.StartUp;
 
 import static android.content.Context.MODE_PRIVATE;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class ProfileFragment extends Fragment {
 
     private View pfView;
     private SharedPreferences pfPref;
 
     private TextView pfName,pfEmail;
-    private Button pfButton;
-    private String pfId;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -58,7 +53,7 @@ public class ProfileFragment extends Fragment {
                 editor.putBoolean(Constants.IS_LOGGED_IN,false);
                 editor.putString(Constants.EMAIL,"");
                 editor.putString(Constants.NAME,"");
-                editor.putString(Constants.UNIQUE_ID,"");
+                editor.putString(Constants.USER_ID,"");
                 editor.apply();
 
                 Intent na = new Intent(getActivity(), StartUp.class);

@@ -1,18 +1,15 @@
 package com.example.maverikapp.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.example.maverikapp.R;
-import com.example.maverikapp.api.Constants;
-import com.example.maverikapp.ui.authentication.StartUp;
+import com.example.maverikapp.utils.Constants;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {

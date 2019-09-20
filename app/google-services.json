@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "893835069370",
+    "firebase_url": "https://maverikapp.firebaseio.com",
+    "project_id": "maverikapp",
+    "storage_bucket": "maverikapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:893835069370:android:01b003c623e7b743",
+        "android_client_info": {
+          "package_name": "com.example.maverikapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "893835069370-b55srmvtsgjijjuo9690b5ihk6pjp23o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.maverikapp",
+            "certificate_hash": "cd801a9baccb917ead9fc08fa04392825439750f"
+          }
+        },
+        {
+          "client_id": "893835069370-h2jrl5suqqtefelakbbola0beh2ojj4a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXGtKyqgTwJJL6qSxlFQPuRJViQ2xE7SY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "893835069370-h2jrl5suqqtefelakbbola0beh2ojj4a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

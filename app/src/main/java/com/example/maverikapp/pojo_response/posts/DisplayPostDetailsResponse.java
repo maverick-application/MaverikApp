@@ -1,21 +1,29 @@
-package com.example.maverikapp.data_models;
+package com.example.maverikapp.pojo_response.posts;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class DisplayPostDetails {
+public class DisplayPostDetailsResponse {
 
     @SerializedName("p_id")
     @Expose
     private String p_id;
 
-    @SerializedName("p_name")
+    @SerializedName("p_title")
     @Expose
-    private String p_name;
+    private String p_title;
 
     @SerializedName("p_desc")
     @Expose
     private String p_desc;
+
+    @SerializedName("p_time")
+    @Expose
+    private String p_time;
+
+    @SerializedName("p_user_id")
+    @Expose
+    private String p_user_id;
 
     @SerializedName("p_img")
     @Expose
@@ -25,13 +33,32 @@ public class DisplayPostDetails {
     @Expose
     private String p_likes;
 
-    @SerializedName("p_time")
+    @SerializedName("p_links")
     @Expose
-    private String p_time;
+    private String p_links;
+
+    @SerializedName("p_college")
+    @Expose
+    private DisplayPostCollegeDetails p_college;
+
 
     @SerializedName("p_like_status")
     @Expose
     private String p_like_status;
+
+
+    public void setP_user_id(String p_user_id) {
+        this.p_user_id = p_user_id;
+    }
+
+    public String getP_links() {
+        return p_links;
+    }
+
+    public void setP_links(String p_links) {
+        this.p_links = p_links;
+    }
+
 
 
 
@@ -58,12 +85,12 @@ public class DisplayPostDetails {
         this.p_id = p_id;
     }
 
-    public String getP_name() {
-        return p_name;
+    public String getP_title() {
+        return p_title;
     }
 
-    public void setP_name(String p_name) {
-        this.p_name = p_name;
+    public void setP_title(String p_title) {
+        this.p_title = p_title;
     }
 
     public String getP_desc() {
@@ -90,7 +117,16 @@ public class DisplayPostDetails {
         this.p_time = p_time;
     }
 
+    public String getP_user_id() {
+        return p_user_id;
+    }
 
+    public DisplayPostCollegeDetails getP_college() {
+        return p_college;
+    }
 
+    public void setP_college(DisplayPostCollegeDetails p_college) {
+        this.p_college = p_college;
+    }
 
 }

@@ -50,7 +50,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal|center_vertical"
-                    android:text="Admin"
+                    android:text="@string/admin"
                     android:textAlignment="center"
                     android:textColor="@color/colorAccent"
                     android:textSize="20sp"
@@ -85,7 +85,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal|center_vertical"
-                    android:text="user"
+                    android:text="@string/member"
                     android:textAlignment="center"
                     android:textColor="@color/colorAccent"
                     android:textSize="20sp"
@@ -107,7 +107,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="user  :  it is for maverick Captian and other team memebers to access the account"
+        android:text="userDetailsResponse  :  it is for maverick Captian and other team memebers to access the account"
         android:textColor="@color/colorAccent"
         android:textSize="13sp" />
 
