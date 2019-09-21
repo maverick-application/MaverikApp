@@ -1,7 +1,7 @@
 package com.example.maverikapp.api;
 
 import com.example.maverikapp.pojo_response.auth.AuthenticationResponse;
-import com.example.maverikapp.pojo_response.posts.PostResponse;
+import com.example.maverikapp.pojo_response.events.EventsResponse;
 import com.example.maverikapp.pojo_response.posts.PostResponse;
 import com.example.maverikapp.pojo_response.posts.DisplayPostResponse;
 
@@ -82,5 +82,22 @@ public interface Api {
     @GET("posts/edit_posts.php")
     Call<PostResponse> deletePost(
             @Header("POST") int post_id
+    );
+
+    //This is used for the Creating of the post
+    @FormUrlEncoded
+    @POST("events/create_event.php")
+    Call<EventsResponse> createEvent(
+            @Field("e_name") String name,
+            @Field("e_desc") String desc,
+            @Field("e_collage") String collage,
+            @Field("e_budget") String budget,
+            @Field("e_total_no") String total_no,
+            @Field("e_status") String status,
+            @Field("e_img_l") String img_l,
+            @Field("e_img_n") String img_n,
+            @Field("e_sponsor_name") String sponsor_name,
+            @Field("e_sponsor_img") String sponsor_img,
+            @Field("e_sponsor_link") String sponsor_link
     );
 }

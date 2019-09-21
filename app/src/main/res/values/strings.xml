@@ -37,4 +37,10 @@
     <string name="post_description">post description</string>
     <string name="submit">submit</string>
     <string name="post_links">post links</string>
+    <string name="u20b9_1000_onwards">₹ 1000 onwards</string>
+    <string name="event_name">event name</string>
+    <string name="event_description">event description</string>
+    <string name="capacity">capacity</string>
+    <string name="budget">budget</string>
+    <string name="create_event">create event</string>
 </resources>
