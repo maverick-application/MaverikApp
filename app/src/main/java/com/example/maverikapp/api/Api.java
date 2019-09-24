@@ -1,6 +1,7 @@
 package com.example.maverikapp.api;
 
 import com.example.maverikapp.pojo_response.auth.AuthenticationResponse;
+import com.example.maverikapp.pojo_response.events.DisplayEventsResponse;
 import com.example.maverikapp.pojo_response.events.EventsResponse;
 import com.example.maverikapp.pojo_response.posts.PostResponse;
 import com.example.maverikapp.pojo_response.posts.DisplayPostResponse;
@@ -99,5 +100,12 @@ public interface Api {
             @Field("e_sponsor_name") String sponsor_name,
             @Field("e_sponsor_img") String sponsor_img,
             @Field("e_sponsor_link") String sponsor_link
+    );
+
+    //This is used for getting all the future pots of the events
+    @FormUrlEncoded
+    @POST("events/display_all_events.php")
+    Call<DisplayEventsResponse> displayEvents(
+      @Field("event_status") String status
     );
 }
