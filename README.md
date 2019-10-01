@@ -1,3 +1,6 @@
 # MaverikApp
 The Maverick Application
-Post Modeule Done
+<br>
+Post Modeule Done<br>
+Events Module Completed(Event Full View Completed)<br>
+
