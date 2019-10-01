@@ -20,8 +20,9 @@ import com.example.maverikapp.adapter.EventsAdapter;
 import com.example.maverikapp.api.RetrofitClient;
 import com.example.maverikapp.pojo_response.events.DisplayEventsDetailResponse;
 import com.example.maverikapp.pojo_response.events.DisplayEventsResponse;
-import com.example.maverikapp.pojo_response.posts.DisplayPostResponse;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.example.maverikapp.pojo_response.posts.DisplayPostDetailsResponse;
+import com.example.maverikapp.ui.home.FullPostView;
+import com.example.maverikapp.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,15 +31,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class FutureEventsFragment extends Fragment {
 
     private View feView;
     private RecyclerView feRecyclerView;
     private List<DisplayEventsDetailResponse> feEvents = new ArrayList<>();
     Call<DisplayEventsResponse> feCall;
+    private EventsAdapter feAdapter;
 
 
     public FutureEventsFragment() {
@@ -73,15 +72,15 @@ public class FutureEventsFragment extends Fragment {
                         Toast.makeText(getContext(),eventR.getMessage(),Toast.LENGTH_SHORT).show();
 
                         feRecyclerView = feView.findViewById(R.id.fe_recycler_view);
-                        Context context;
                         LinearLayoutManager feLayoutManager = new LinearLayoutManager(getContext());
                         feRecyclerView.setLayoutManager(feLayoutManager);
                         feRecyclerView.setItemAnimator(new DefaultItemAnimator());
                         feRecyclerView.setNestedScrollingEnabled(false);
                         feEvents = eventR.getEvents();
-                        EventsAdapter feAdapter = new EventsAdapter(feEvents,getContext());
+                        feAdapter = new EventsAdapter(feEvents,getContext());
                         feRecyclerView.setAdapter(feAdapter);
                         feAdapter.notifyDataSetChanged();
+                        eventClickListener();
 
 
                     }else{
@@ -98,6 +97,31 @@ public class FutureEventsFragment extends Fragment {
             }
         });
 
+    }
+
+    private void eventClickListener() {
+        feAdapter.setOnItemClickListener(new EventsAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+
+                DisplayEventsDetailResponse eResp = feEvents.get(position);
+                Intent fe = new Intent(getActivity(),EventFullView.class);
+                Toast.makeText(getContext(), "Full View Post", Toast.LENGTH_SHORT).show();
+                fe.putExtra(Constants.E_ID,eResp.getE_id());
+                fe.putExtra(Constants.E_NAME,eResp.getE_name());
+                fe.putExtra(Constants.E_DESC,eResp.getE_desc());
+                fe.putExtra(Constants.E_IMG_LINK,eResp.getE_img_n());
+                fe.putExtra(Constants.E_COLLEGE_NAME,eResp.getE_college().getCollege_name());
+                fe.putExtra(Constants.E_COLLEGE_IMG,eResp.getE_college().getCollege_img());
+                fe.putExtra(Constants.E_COLLEGE_LOC,eResp.getE_college().getCollege_link());
+                fe.putExtra(Constants.E_COLLEGE_ADD,eResp.getE_college().getCollege_address());
+                fe.putExtra(Constants.E_SPONSOR_NAME,eResp.getE_sponsor_name());
+                fe.putExtra(Constants.E_SPONSOR_IMG,eResp.getE_sponsor_img());
+                fe.putExtra(Constants.E_SPONSOR_LINK,eResp.getE_sponsor_link());
+                startActivity(fe);
+
+            }
+        });
     }
 
 }

@@ -35,4 +35,23 @@ public class Constants {
     public static final String P_COLLEGE_NAME = "college_name";
     public static final String P_COLLEGE_IMG = "college_img";
 
+    //Posts Purpose
+
+    public static final String E_ID = "e_id";
+    public static final String E_NAME = "e_name";
+    public static final String E_IMG = "e_img";
+    public static final String E_DESC = "e_desc";
+    public static final String E_TIME = "e_time";
+    public static final String E_IMG_LINK = "e_links";
+    public static final String E_SPONSOR_NAME = "e_sponsor_name";
+    public static final String E_SPONSOR_IMG = "e_sponsor_img";
+    public static final String E_SPONSOR_LINK = "e_sponsor_link";
+    public static final String E_COLLEGE_ID = "college_id";
+    public static final String E_COLLEGE_NAME = "college_name";
+    public static final String E_COLLEGE_IMG = "college_img";
+    public static final String E_COLLEGE_LOC = "college_loc";
+    public static final String E_COLLEGE_ADD = "college_add";
+    public static final String E_TEAM_NAME = "Team Name";
+    public static final String E_TEAM_IMG = "Team Img";
+
 }

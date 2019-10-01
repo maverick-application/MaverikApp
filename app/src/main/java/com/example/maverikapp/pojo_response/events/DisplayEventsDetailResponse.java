@@ -1,5 +1,6 @@
 package com.example.maverikapp.pojo_response.events;
 
+import com.example.maverikapp.pojo_response.utility.CollegeDetails;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -23,7 +24,7 @@ public class DisplayEventsDetailResponse {
 
     @SerializedName("e_college")
     @Expose
-    private String e_college;
+    private CollegeDetails e_college;
 
     @SerializedName("e_budget")
     @Expose
@@ -90,11 +91,11 @@ public class DisplayEventsDetailResponse {
         this.e_date = e_date;
     }
 
-    public String getE_college() {
+    public CollegeDetails getE_college() {
         return e_college;
     }
 
-    public void setE_college(String e_college) {
+    public void setE_college(CollegeDetails e_college) {
         this.e_college = e_college;
     }
 
@@ -161,4 +162,5 @@ public class DisplayEventsDetailResponse {
     public void setE_sponsor_link(String e_sponsor_link) {
         this.e_sponsor_link = e_sponsor_link;
     }
+
 }
