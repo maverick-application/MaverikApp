@@ -23,6 +23,8 @@ public class DisplayEventsResponse {
     @Expose
     private List<DisplayEventsDetailResponse> events;
 
+
+
     public int getResult() {
         return result;
     }

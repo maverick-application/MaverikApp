@@ -1,5 +1,6 @@
 package com.example.maverikapp.pojo_response.posts;
 
+import com.example.maverikapp.pojo_response.utility.CollegeDetails;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -39,7 +40,7 @@ public class DisplayPostDetailsResponse {
 
     @SerializedName("p_college")
     @Expose
-    private DisplayPostCollegeDetails p_college;
+    private CollegeDetails p_college;
 
 
     @SerializedName("p_like_status")
@@ -121,11 +122,11 @@ public class DisplayPostDetailsResponse {
         return p_user_id;
     }
 
-    public DisplayPostCollegeDetails getP_college() {
+    public CollegeDetails getP_college() {
         return p_college;
     }
 
-    public void setP_college(DisplayPostCollegeDetails p_college) {
+    public void setP_college(CollegeDetails p_college) {
         this.p_college = p_college;
     }
 

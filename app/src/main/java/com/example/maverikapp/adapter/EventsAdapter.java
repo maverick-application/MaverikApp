@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.maverikapp.R;
-import com.example.maverikapp.pojo_response.events.DisplayEventsResponse;
 import com.example.maverikapp.pojo_response.events.DisplayEventsDetailResponse;
 
 import java.util.List;
@@ -45,7 +44,7 @@ public class EventsAdapter  extends RecyclerView.Adapter<EventsAdapter.EventsVie
         final DisplayEventsDetailResponse model = eaList.get(position);
 
         holder.titleV.setText(model.getE_name());
-        holder.locationV.setText(model.getE_college());
+        holder.locationV.setText(model.getE_college().getCollege_username());
         holder.costV.setText(model.getE_cost());
         holder.dateV.setText(model.getE_date());
 

@@ -26,7 +26,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.events.CreateEvent"></activity>
+        <activity android:name=".ui.events.EventFullView"></activity>
+        <activity android:name=".ui.events.CreateEvent" />
         <activity android:name=".ui.home.EditPost" />
         <activity android:name=".ui.home.FullPostView" />
         <activity android:name=".ui.home.CreatePost" />
