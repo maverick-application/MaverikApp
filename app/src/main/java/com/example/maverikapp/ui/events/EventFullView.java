@@ -59,6 +59,12 @@ public class EventFullView extends AppCompatActivity {
         efvTeam = (CircleImageView) findViewById(R.id.efv_team_img);
         efvTeamView = (TextView) findViewById(R.id.efv_team_name);
 
+        findViewById(R.id.efv_event_details).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(EventFullView.this,EventDetails.class));
+            }
+        });
 
         Intent efvIntent = getIntent();
         Bundle efvBundle = efvIntent.getExtras();
