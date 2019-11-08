@@ -110,6 +110,7 @@ public class FutureEventsFragment extends Fragment {
                 fe.putExtra(Constants.E_ID,eResp.getE_id());
                 fe.putExtra(Constants.E_NAME,eResp.getE_name());
                 fe.putExtra(Constants.E_DESC,eResp.getE_desc());
+                fe.putExtra(Constants.E_COST,eResp.getE_cost());
                 fe.putExtra(Constants.E_IMG_LINK,eResp.getE_img_n());
                 fe.putExtra(Constants.E_COLLEGE_NAME,eResp.getE_college().getCollege_name());
                 fe.putExtra(Constants.E_COLLEGE_IMG,eResp.getE_college().getCollege_img());

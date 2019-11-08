@@ -108,4 +108,13 @@ public interface Api {
     Call<DisplayEventsResponse> displayEvents(
       @Field("event_status") String status
     );
+
+
+    @Headers("Content-Type: application/json")
+    @GET("events/display_all_events.php")
+    Call<EventsResponse> deleteEvent(
+            @Header("EVENT") String eventId
+    );
+
+
 }
